@@ -1,0 +1,58 @@
+html, body, #app {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  background-color: #F5F5F5;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+  background-color: #c8c8c8;
+}
+
+.cesium-performanceDisplay-defaultContainer {
+  display: none;
+}
+
+.ctrlPanel {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  padding: 20px;
+  max-width: 400px;
+  border: #0ae9ff solid 1px;
+  z-index: 200;
+  background-color: rgba(78, 84, 101, 0.38);
+  border-radius: 10px;
+  color: white;
+  text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
+
+}
+
+.ctr-btn-sm {
+  padding: 2px;
+}

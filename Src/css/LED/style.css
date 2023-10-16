@@ -1,0 +1,15 @@
+.label-led-container{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    text-align: center;
+    font-family: 'LED';
+    font-size: 24px;
+    font-weight: 100;
+    margin: 0px;
+    pointer-events: none;
+    background-image: -webkit-linear-gradient(bottom, red, #fd8403, yellow);
+    /* background-image: -webkit-linear-gradient(bottom, yellow, #ffeb3b, #fdfdfc); */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

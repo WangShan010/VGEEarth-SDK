@@ -1,0 +1,28 @@
+ .gradient-label {
+     text-align: center;
+     position: absolute;
+     padding: 5px 20px;
+     margin: 0;
+     color: #fff;
+     background: linear-gradient(rgb(7 10 203 / 75%), rgb(16 238 220));
+     -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+     border-radius: 5px;
+     max-width: 180px;
+     max-height: 134px;
+     -webkit-user-select: none;
+     -moz-user-select: none;
+     -ms-user-select: none;
+     user-select: none;
+ }
+ 
+ .gradient-label:after {
+     content: "";
+     position: absolute;
+     bottom: -60px;
+     left: calc(50% - 3px);
+     display: block;
+     width: 3px;
+     height: 60px;
+     border-right: 3px solid #2bcdbb;
+ }

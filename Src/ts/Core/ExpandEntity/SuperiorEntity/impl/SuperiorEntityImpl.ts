@@ -1,0 +1,5 @@
+interface SuperiorEntityImpl {
+
+}
+
+export { SuperiorEntityImpl };

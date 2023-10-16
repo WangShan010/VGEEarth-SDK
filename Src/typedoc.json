@@ -1,0 +1,35 @@
+{
+  "name": "VGE-Earth SDK 中文文档",
+  "includeVersion": true,
+  "hideGenerator": true,
+  "searchInComments": true,
+  "watch": true,
+  "basePath": "./ts",
+  "entryPoints": [
+    "./ts/Core/Config/index.ts",
+    "./ts/Core/DrawShape/index.ts",
+    "./ts/Core/Earth/index.ts",
+    "./ts/Core/EventMana/index.ts",
+    "./ts/Core/ExpandEntity/index.ts",
+    "./ts/Core/ExpandLayer/index.ts",
+    "./ts/Core/HandlerMana/index.ts",
+    "./ts/Core/KeyboardDominate/index.ts",
+    "./ts/Core/MeasureTool/index.ts",
+    "./ts/Core/PathPlanning/index.ts",
+    "./ts/Core/PlotTool/index.ts",
+    "./ts/Core/RunEntityController/index.ts",
+    "./ts/Core/WorkSpace/index.ts",
+
+
+    "./ts/Utils/CameraUtils/index.ts",
+    "./ts/Utils/CoordinateTool/index.ts",
+    "./ts/Utils/GISMathUtils/index.ts",
+    "./ts/Utils/MarkTool/index.ts",
+    "./ts/Utils/SceneUtils/index.ts",
+    "./ts/Utils/YaoDo/index.ts"
+  ],
+  "entryPointStrategy": "expand",
+  "categoryOrder": ["Category Name", "Other Category", "*"],
+  "readme": "./README.md",
+  "out": "../API"
+}

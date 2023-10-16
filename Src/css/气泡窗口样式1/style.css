@@ -1,0 +1,49 @@
+.popup3d1-container {
+    min-height: 200px;
+    min-width: 350px;
+    background: #3183bdb0;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    cursor: default;
+}
+
+.popup3d1-container::before {
+    position: absolute;
+    content: "";
+    top: 100%;
+    left: calc(50% - 20px);
+    border: 20px solid transparent;
+    border-top: 40px solid #3183bdb0;
+}
+
+.popup3d1-header {
+    color: white;
+    background: #2152bb;
+    height: 30px;
+    line-height: 30px;
+}
+
+.popup3d1-header-title {
+    display: inline-block;
+    height: 100%;
+    margin-left: 5px;
+}
+
+.popup3d1-close {
+    position: absolute;
+    right: 1px;
+    font-size: 25px;
+    cursor: pointer;
+    width: 29px;
+    text-align: center;
+}
+
+.popup3d1-close:hover {
+    background: #dc2929b9;
+}
+
+.popup3d1-body {
+    padding: 10px;
+    color: white;
+}

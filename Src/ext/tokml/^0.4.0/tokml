@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var tokml = require('./'),
+    rw = require('rw'),
+    argv = require('minimist')(process.argv.slice(2), {
+        boolean: 'simplestyle'
+    });
+
+if (process.stdin.isTTY && !argv._[0]) {
+    process.stdout.write(rw.readSync(__dirname + '/HELP.md'));
+    process.exit(1);
+}
+
+var input = rw.readSync(argv._.length ? argv._[0] : '/dev/stdin', 'utf8');
+process.stdout.write(tokml(JSON.parse(input), argv));

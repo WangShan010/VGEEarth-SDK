@@ -1,0 +1,39 @@
+{
+  "name": "tokml",
+  "version": "0.4.0",
+  "description": "convert geojson to kml",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test/*.js",
+    "build": "browserify -s tokml index.js > tokml.js",
+    "cov": "istanbul cover test/kml.test.js && coveralls < ./coverage/lcov.info"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mapbox/tokml.git"
+  },
+  "keywords": [
+    "kml",
+    "geojson",
+    "geo",
+    "maps"
+  ],
+  "bin": {
+    "tokml": "tokml"
+  },
+  "author": "Tom MacWright",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "glob": "~3.2.6",
+    "corslite": "0.0.5",
+    "tap": "~0.4.8",
+    "fuzzer": "0.0.0",
+    "coveralls": "~2.10.0",
+    "istanbul": "~0.2.11"
+  },
+  "dependencies": {
+    "minimist": "0.1.0",
+    "strxml": "0.0.0",
+    "rw": "0.0.4"
+  }
+}

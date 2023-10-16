@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../../Ext/Cesium/^1.106/Cesium.js"></script>
+    <link href="../../../Ext/Cesium/^1.106/Widgets/widgets.css" rel="stylesheet">
+    <script src="../../../Ext/Cesium-Navigation/^1.1.4/viewerCesiumNavigationMixin.js"></script>
+    <script src="../../../Src/dist/VGEEarth.js"></script>
+
+</head>
+<body>
+<div class="ctrlPanel">
+    <div class="btn-group">
+        <button class="btn btn-default" onclick="pathPlanning.takeStartingPoint()" type="button">起始点</button>
+        <button class="btn btn-default" onclick="pathPlanning.takeEndPoint()" type="button">目的点</button>
+        <button class="btn btn-default" onclick="pathPlanning.takePassPoint()" type="button">途经点</button>
+        <button class="btn btn-default" onclick="pathPlanning.takeAvoidRange()" type="button">避让区</button>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-default" onclick="pathPlanning.runNavigation()" type="button">规划</button>
+        <button class="btn btn-default" onclick="pathPlanning.resetNavigation()" type="button">重置</button>
+    </div>
+</div>
+<div id="MapContainer" style="width: 100%;height: 100%"></div>
+<script src="index.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+#cesium-image-layer-split:hover {
+    cursor: ew-resize;
+}
+/* 卷帘对比的分界线 */
+#cesium-image-layer-split{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    background-color: #d3d3d3;
+    width: 5px;
+    height: 100%;
+}

@@ -1,0 +1,53 @@
+.video-popup3d-container {
+    min-width: 250px;
+    min-height: 200px;
+    max-width: 400px;
+    max-height: 400px;
+    background: #14193399;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    cursor: default;
+}
+
+.video-popup3d-container::before {
+    content: "";
+    width: calc(100% + 22px);
+    height: 39px;
+    position: absolute;
+    bottom: -39px;
+    left: -22px;
+    background: url(../../img/popup3d/popup3d.png) 0px 0px no-repeat;
+    background-position: 0px 0px;
+}
+
+.video-popup3d-header {
+    height: 30px;
+    color: white;
+    background: #1f3f8e;
+    line-height: 30px;
+}
+
+.video-popup3d-header-title {
+    display: inline-block;
+    height: 100%;
+    margin-left: 5px;
+}
+
+.video-popup3d-close {
+    position: absolute;
+    right: 1px;
+    font-size: 25px;
+    cursor: pointer;
+    width: 29px;
+    text-align: center;
+}
+
+.video-popup3d-close:hover {
+    background: #dc2929b9;
+}
+
+.video-jd-temp {
+    width: 400px;
+    height: 240px;
+}
