@@ -1,26 +1,26 @@
-VGEEarth.ConfigTool.addMapBoxOnLine(true);
-VGEEarth.ConfigTool.addTerrainOnAliYun(true);
+VGEEarth.ConfigTool.addBingMapOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnIon(true);
 
 const earth = new VGEEarth.Earth('MapContainer');
 earth.createNavigation();
 earth.openDeBug();
 
 
-const tileSet = earth.viewer3D.scene.primitives.add(new Cesium.Cesium3DTileset({
-    url: new Cesium.Resource({
-        url: 'http://earthsdk.com/v/last/Apps/assets/dayanta/tileset.json',
-        // url:'http://localhost:3000/DBService/3DTiles-YunHe-3/cesium_3d_tiles_5_15.json',
-        maximumScreenSpaceError: 2,
-        maximumMemoryUsage: 8192,
+const tileSet = await Cesium.Cesium3DTileset.fromUrl(
+    new Cesium.Resource({
+        url: 'https://vge-webgl-open.oss-cn-beijing.aliyuncs.com/3DTiles-DaYanTa/tileset.json',
         queryParameters: {
             'access_token': '123-435-456-000'
         }
     }),
-    maximumScreenSpaceError: 24
-}));
+    {
+        maximumScreenSpaceError: 2,
+        maximumMemoryUsage: 8192,
+    }
+);
 
+
+earth.viewer3D.scene.primitives.add(tileSet);
 earth.viewer3D.zoomTo(tileSet);
-
-
 
 

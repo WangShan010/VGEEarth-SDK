@@ -1,4 +1,4 @@
-// VGEEarth.ConfigTool.addTerrainOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnIon(true);
 VGEEarth.ConfigTool.addBingMapOnIon(true);
 
 

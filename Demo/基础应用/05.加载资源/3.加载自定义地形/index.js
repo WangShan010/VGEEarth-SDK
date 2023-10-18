@@ -10,7 +10,7 @@ earth.viewer3DWorkSpace.addData({
     dataType: 'terrain',
     properties: {
         scheme: 'CesiumTerrainProvider',
-        url: 'http://localhost:3000/DBService/中国地形/'
+        url: 'https://vge-webgl.oss-cn-beijing.aliyuncs.com/DEM-wordHeights'
     }
 }).then(r => {
     earth.viewer3DWorkSpace.flyToDataByPid('terrain-1');

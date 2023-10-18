@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="../../../Ext/Cesium/^1.106/Cesium.js"></script>
-    <link href="../../../Ext/Cesium/^1.106/Widgets/widgets.css" rel="stylesheet">
+    <script src="../../../Ext/Cesium/^1.110/Cesium.js"></script>
+    <link href="../../../Ext/Cesium/^1.110/Widgets/widgets.css" rel="stylesheet">
     <script src="../../../Ext/Cesium-Navigation/^1.1.4/viewerCesiumNavigationMixin.js"></script>
     <script src="../../../Src/dist/VGEEarth.js"></script>
 </head>
 <body>
 <div class="ctrlPanel">
     <div class="btn-group">
-        <button class="btn btn-sm" onclick="earth.measureTool.measureHeight()">测高程</button>
-        <button class="btn btn-sm" onclick="earth.measureTool.spaceDistance()">测距离</button>
-        <button class="btn btn-sm" onclick="earth.measureTool.verticalDistance()">测高差</button>
-        <button class="btn btn-sm" onclick="earth.measureTool.surfaceArea()">测面积</button>
-        <button class="btn btn-sm" onclick="earth.measureTool.measureTriangle()">测角度</button>
-        <button class="btn btn-sm" onclick="earth.measureTool.perimeter()">测周长</button>
-        <button class="btn btn-sm btn-warning" onclick="earth.measureTool.stopMeasure()">结束</button>
-        <button class="btn btn-sm btn-danger" onclick="earth.measureTool.removeAll()">重置</button>
+        <button class="btn btn-default" onclick="earth.measureTool.measureHeight()">测高程</button>
+        <button class="btn btn-default" onclick="earth.measureTool.spaceDistance()">测距离</button>
+        <button class="btn btn-default" onclick="earth.measureTool.verticalDistance()">测高差</button>
+        <button class="btn btn-default" onclick="earth.measureTool.surfaceArea()">测面积</button>
+        <button class="btn btn-default" onclick="earth.measureTool.measureTriangle()">测角度</button>
+        <button class="btn btn-default" onclick="earth.measureTool.perimeter()">测周长</button>
+        <button class="btn btn-default " onclick="earth.measureTool.stopMeasure()">结束</button>
+        <button class="btn btn-default " onclick="earth.measureTool.removeAll()">重置</button>
     </div>
 </div>
 <div id="MapContainer" style="width: 100%;height: 100%"></div>

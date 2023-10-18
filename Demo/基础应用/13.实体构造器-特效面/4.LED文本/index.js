@@ -1,10 +1,14 @@
+VGEEarth.ConfigTool.addTerrainOnIon(true);
+VGEEarth.ConfigTool.addBingMapOnIon(true);
+
 const earth = new VGEEarth.Earth('MapContainer');
 earth.createNavigation();
+
 earth.viewer3D.scene.globe.depthTestAgainstTerrain = false;
 let regionJson = [];
 let options = {
-    backGround: 'static/beij.083ca80f.png',      //周围行政区背景图
-    wallgradients: 'static/wallgradients.png',       //行政区边界墙体效果
+    backGround: './static/beij.083ca80f.png',      //周围行政区背景图
+    wallgradients: './static/wallgradients.png',       //行政区边界墙体效果
     size: 0.5,                                   //标签大小
     colorLine: [.10, .10, .10],                               //周围行政区别界线颜色
     colorPolygon: [.10, .15, .15]                             //周围行政区边境面颜色
@@ -28,7 +32,7 @@ let regionLabel = new VGEEarth.RegionLabel(
     earth.viewer3D, options, regionJson
 );
 
-fetch('data/beijing_3point.json')
+fetch('./data/beijing_3point.json')
     .then(res => {
         return res.json();
     })

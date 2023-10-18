@@ -76,13 +76,6 @@ const ConfigTool = {
             return item;
         }));
     },
-    addMapBoxOnLine(show = false) {
-        for (let i = 0; i < MapBoxLayerList.length; i++) {
-            let layer = JSON.parse(JSON.stringify(MapBoxLayerList[i]));
-            layer.defaultLoad = show;
-            config.layerList.push(layer);
-        }
-    },
     addMapBoxOnAliYun(show = false) {
         let layer = JSON.parse(JSON.stringify(MapBoxLayerList[0]));
         layer.defaultLoad = show;

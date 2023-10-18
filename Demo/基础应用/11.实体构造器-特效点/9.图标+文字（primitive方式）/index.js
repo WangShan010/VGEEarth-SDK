@@ -1,16 +1,5 @@
-VGEEarth.ConfigTool.addMapBoxOnLine(true);
-VGEEarth.ConfigTool.addTerrainOnAliYun(true);
-
-VGEEarth.ConfigTool.loadConfig({
-    homeView: {
-        longitude: 108.9882,
-        latitude: 32.06822,
-        height: 2799.40946,
-        headingRadians: 3.857331164336868,
-        pitchRadians: -0.418174472030965,
-        rollRadians: 6.283136533129425
-    }
-});
+VGEEarth.ConfigTool.addBingMapOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnIon(true);
 
 const earth = new VGEEarth.Earth('MapContainer');
 earth.createNavigation();

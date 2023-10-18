@@ -1,5 +1,5 @@
-VGEEarth.ConfigTool.addMapBoxOnLine(true);
-VGEEarth.ConfigTool.addTerrainOnAliYun(true);
+VGEEarth.ConfigTool.addBingMapOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnIon(true);
 
 VGEEarth.ConfigTool.loadConfig({
     homeView: {
@@ -25,8 +25,6 @@ let point = new VGEEarth.SuperiorEntity.FloatMarker(
 );
 
 point.init();
-
-// earth.viewer3D.zoomTo(point.floatMarker)
 
 
 earth.viewer3D.scene.camera.setView(

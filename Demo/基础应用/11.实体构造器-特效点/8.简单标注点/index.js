@@ -1,5 +1,5 @@
-VGEEarth.ConfigTool.addMapBoxOnLine(true);
-VGEEarth.ConfigTool.addTerrainOnAliYun(true);
+VGEEarth.ConfigTool.addBingMapOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnIon(true);
 
 VGEEarth.ConfigTool.loadConfig({
     homeView: {
@@ -16,8 +16,6 @@ const earth = new VGEEarth.Earth('MapContainer');
 earth.createNavigation();
 earth.openDeBug();
 earth.viewer3D.scene.globe.depthTestAgainstTerrain = true;
-
-let GISResourcesUrl = 'https://emergency-rescue-webgl.oss-cn-beijing.aliyuncs.com';
 
 
 let dom = document.createElement('div');

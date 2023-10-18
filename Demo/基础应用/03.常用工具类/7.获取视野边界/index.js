@@ -20,12 +20,10 @@ let debugLine = new Cesium.Entity({
 });
 earth.viewer3D.entities.add(debugLine);
 
-let index = 0;
 VGEEarth.EventMana.screenEvent.addEventListener(
     VGEEarth.EventMana.ListenType.ScreenSpaceEventType.WHEEL,
     VGEEarth.EventMana.ScopeType.Viewer3D,
     function (e) {
-        console.log(index++);
         setTimeout(() => {
             viewerRect = VGEEarth.CameraUtils.getCameraRectanglePoint().flat(2);
         }, 400);

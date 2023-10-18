@@ -113,7 +113,7 @@ class PlotTool {
      * @constructor
      */
     SaveAsGeoJson(func: Function) {
-        BOMTool.saveShareContent(JSON.stringify(this.GeoJson), 'exporton');
+        BOMTool.saveShareContent(JSON.stringify(this.GeoJson), '导出.GeoJson');
         typeof func === 'function' && func('导出 GeoJson 文件成功');
     }
 

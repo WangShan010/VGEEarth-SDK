@@ -19,6 +19,6 @@ earth.initMonitorCoordinates(
         position.height = `${height.toFixed(2)} m`;
         position.cameraHeight = `${cameraHeight.toFixed(2)} m`;
         position.orientation = orientation;
-        console.log(position);
+        document.getElementById('position-label').innerText = JSON.stringify(position, null, 4);
     }
 );

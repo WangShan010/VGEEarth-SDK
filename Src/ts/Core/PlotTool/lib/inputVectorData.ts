@@ -27,6 +27,7 @@ function inputVectorData({errFunc, endFunc} = {errFunc: Function, endFunc: Funct
                     // @ts-ignore
                     endFunc && endFunc({fileName, filePath, fileType, geoJson});
                 } catch (e) {
+                    console.log(e);
                     errFunc && errFunc('文件已损坏');
                 }
             };
@@ -37,6 +38,7 @@ function inputVectorData({errFunc, endFunc} = {errFunc: Function, endFunc: Funct
                     let kmlStr = domParser.parseFromString(evt.target.result, 'text/xml');
                     let geoJson = window.toGeoJSON.kml(kmlStr);
                     if (geoJson.features.length === 0) {
+                        console.log('数据为空：', geoJson);
                         errFunc && errFunc('文件已损坏');
                         return;
                     }

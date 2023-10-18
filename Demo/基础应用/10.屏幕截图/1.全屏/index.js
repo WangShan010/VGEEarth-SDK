@@ -29,7 +29,7 @@ const convertToImage = (container, options = {}) => {
 
 // 调用函数，取到截图的二进制数据，对图片进行处理（保存本地、展示等）
 
-window.p = async function () {
+window.print = async function () {
     let d = document.body;
     const imgBlobData = await convertToImage(d);
     saveAs(imgBlobData, 'test.png');

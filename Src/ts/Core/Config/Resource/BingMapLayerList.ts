@@ -11,6 +11,10 @@ const BingMapLayerList: ResourceItem[] = [
         defaultLoad: true,
         offlineCache: true,
         netRootPaths: [
+            'http://ecn.t0.tiles.virtualearth.net/tiles/',
+            'http://ecn.t1.tiles.virtualearth.net/tiles/',
+            'http://ecn.t2.tiles.virtualearth.net/tiles/',
+            'http://ecn.t3.tiles.virtualearth.net/tiles/',
             'https://ecn.t0.tiles.virtualearth.net/tiles/',
             'https://ecn.t1.tiles.virtualearth.net/tiles/',
             'https://ecn.t2.tiles.virtualearth.net/tiles/',

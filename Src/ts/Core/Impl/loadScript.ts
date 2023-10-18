@@ -12,6 +12,7 @@ if (!window.VGEEarth_SDK_isLoaded) {
     window.toGeoJSON = require('../../../ext/togeojson/^5.5.0/dist/togeojson.es.mjs');    // 标绘工具，用于将 kml 转化为转化 geoJson
     window.tokml = require('../../../ext/tokml/^0.4.0/tokml.js');                         // 标绘工具，用于将 geoJson 转化为转化 kml
     require('../../../ext/ztree/^3.5.48/js/jquery.ztree.all.min.js');
+    require('../../../ext/file-saver/^2.0.5/FileSaver.min.js');
     require('../../../ext/ztree/^3.5.48/css/zTreeStyle/zTreeStyle.css');
     require('../../../ext/CesiumNetworkPlug/^1.0.4/CesiumNetworkPlug.min.js');
 
@@ -24,6 +25,7 @@ if (!window.VGEEarth_SDK_isLoaded) {
                 Ol: '版本号：^6.14.1`',
                 Turf: '版本号：^6.5.0`',
                 xmdom: '版本号：^0.6.0`',
+                FileSaver: '版本号：^2.0.5`',
                 toGeoJSON: '版本号：^5.5.0`',
                 Tokml: '版本号：^0.4.0`',
                 ztree: '版本号：^3.5.48`',

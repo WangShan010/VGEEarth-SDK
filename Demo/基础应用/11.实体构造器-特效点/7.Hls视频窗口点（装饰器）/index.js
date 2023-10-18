@@ -1,5 +1,5 @@
-VGEEarth.ConfigTool.addMapBoxOnLine(true);
-// VGEEarth.ConfigTool.addTerrainOnAliYun(true);
+VGEEarth.ConfigTool.addBingMapOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnIon(true);
 
 VGEEarth.ConfigTool.loadConfig({
     homeView: {
@@ -21,9 +21,9 @@ let pinBuilder = new Cesium.PinBuilder();
 
 window.questionPin = earth.viewer3D.entities.add({
     name: 'Question mark',
-    position: Cesium.Cartesian3.fromDegrees(108.97697, 32.05784),
+    position: Cesium.Cartesian3.fromDegrees(108.97697, 32.05784, 2040),
     billboard: {
-        image: pinBuilder.fromUrl('../../../../Src/img/简单标注点（装饰器）/士兵-1.png', Cesium.Color.GREEN, 48),
+        image: pinBuilder.fromUrl('./士兵-1.png', Cesium.Color.GREEN, 48),
         verticalOrigin: Cesium.VerticalOrigin.BOTTOM
     }
 });
@@ -37,3 +37,5 @@ let monitor = {
 
 
 window.hls = new VGEEarth.SuperiorEntity.HlsVideoWindowDecorator(questionPin, monitor);
+
+earth.viewer3D.flyTo(questionPin,);

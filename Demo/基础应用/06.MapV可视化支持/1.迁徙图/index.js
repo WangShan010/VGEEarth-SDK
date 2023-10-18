@@ -231,9 +231,6 @@ function destroy() {
     mapvLayers.map(layer => {
         layer.destroy();
     });
-    //viewer.entities.removeAll();
-    //viewer.imageryLayers.removeAll(true);
-    //viewer.destroy();
 }
 
 /**

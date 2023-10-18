@@ -11,7 +11,7 @@ const blueBox = earth.viewer3D.entities.add({
         material: Cesium.Color.BLUE
     }
 });
-earth.viewer3D.zoomTo(blueBox);
+earth.viewer3D.zoomTo(blueBox).then();
 
 VGEEarth.EventMana.screenEvent.addEventListener(
     VGEEarth.ScreenSpaceEventType.LEFT_CLICK,

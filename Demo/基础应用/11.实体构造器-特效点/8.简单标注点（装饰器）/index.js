@@ -1,6 +1,6 @@
 
-VGEEarth.ConfigTool.addMapBoxOnLine(true);
-VGEEarth.ConfigTool.addTerrainOnAliYun(true);
+VGEEarth.ConfigTool.addBingMapOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnIon(true);
 
 VGEEarth.ConfigTool.loadConfig({
     homeView: {
