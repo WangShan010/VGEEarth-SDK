@@ -572,10 +572,9 @@ class DrawShape {
             let newPosition = that.viewer.scene.pickPosition(event.endPosition);
 
             if (RectanglePoint.length === 1 && newPosition) {
-                // @ts-ignore
-                positions = positions = getRectanglePoint(RectanglePoint[0], newPosition);
+                positions = getRectanglePoint(RectanglePoint[0], newPosition);
                 if (typeof moveCallback === 'function') {
-                    moveCallback(that.coordinates);
+                    moveCallback(coordinateTransform(coordinateType, positions));
                 }
             }
         }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);

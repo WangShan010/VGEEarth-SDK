@@ -17,10 +17,9 @@ if (!window.VGEEarth_SDK_isLoaded) {
     require('../../../ext/CesiumNetworkPlug/^1.0.4/CesiumNetworkPlug.min.js');
 
     if (window.Cesium) {
-        console.log(`%c⭐ 开发包：VGEEarth ${DefaultConfig.Version}，基于 Cesium ^${window.Cesium.VERSION}\n🧑‍💻 版权所有：版权所有：中国科学院空天信息创新研究院  虚拟地理环境工程实验室 VGE-Yao\n🎁 预加载第三方模块：`,
-            'color: green;',
-            {
-                jQuery: '版本号：^2.1.4`',
+        console.log(`%c⭐ 开发包：VGEEarth ${DefaultConfig.Version}，基于 Cesium ^${window.Cesium.VERSION}\n🧑‍💻 版权所有：版权所有：虚拟地理实验室 VGE-Yao；技术支持与交流\n🎁 预加载第三方模块：`,
+            'color: green;',{
+            jQuery: '版本号：^2.1.4`',
                 heatmap: '版本号：^2.0.5`',
                 Ol: '版本号：^6.14.1`',
                 Turf: '版本号：^6.5.0`',
@@ -30,7 +29,7 @@ if (!window.VGEEarth_SDK_isLoaded) {
                 Tokml: '版本号：^0.4.0`',
                 ztree: '版本号：^3.5.48`',
                 CesiumNetworkPlug: '版本号：^1.0.3`'
-            });
+        });
     } else {
         console.log(`%cSDK版本：VGEEarth ${DefaultConfig.Version}，初始化失败：未检测到 Cesium`, 'color: green;');
     }

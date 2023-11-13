@@ -17,7 +17,7 @@
 | VGEEarth SDK（开源版） | https://github.com/WangShan010/VGEEarth-SDK       |
 | 最新版本               | 2023 年 10 月 18 日                               |
 | 交流群                 | QQ 交流群：869192861                              |
-| 版权所有               | © 2018 - 2023 VGELab（虚拟地理环境工程研究室）    |
+| 版权所有               | © 2018 - 2023 VGELab（虚拟地理环境工程实验室）    |
 
 
 
