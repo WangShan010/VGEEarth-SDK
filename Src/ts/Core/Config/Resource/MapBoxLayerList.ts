@@ -8,12 +8,13 @@ const MapBoxLayerList: ResourceItem[] = [
         catalog: '基础影像',
         dataType: DataTypeEnum.layer,
         showInTree: true,
-        defaultLoad: false,
+        defaultLoad: true,
+        show: true,
         netRootPaths: [
             'https://vge-webgl.oss-cn-beijing.aliyuncs.com/encrypt/TMS-mapbox.satellite/'
         ],
-        offlineCache: true,
-        decryptionKey:  "SDcVrdKWEgjKPTGQgZ6zop3OTsYo1T3nQ9FwlxROAySNOzXhmdjpVyDn0dMqcODWtC6+62uXM2jbMt24vgGxxHTkguhelh5LXi+zJ9666ryOhtqhvWrBMe9yr2mFNhIKpDsu+2hTSZG7wU5lDvE492Y+Wp0N8BCXOBjwIaaVSQo=",
+        offlineCache: false,
+        decryptionKey: 'SDcVrdKWEgjKPTGQgZ6zop3OTsYo1T3nQ9FwlxROAySNOzXhmdjpVyDn0dMqcODWtC6+62uXM2jbMt24vgGxxHTkguhelh5LXi+zJ9666ryOhtqhvWrBMe9yr2mFNhIKpDsu+2hTSZG7wU5lDvE492Y+Wp0N8BCXOBjwIaaVSQo=',
         properties: {
             scheme: 'layer-xyz-3857',
             url: 'https://vge-webgl.oss-cn-beijing.aliyuncs.com/encrypt/TMS-mapbox.satellite/{z}/{x}/{y}.webp',

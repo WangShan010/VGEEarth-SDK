@@ -13,47 +13,47 @@ class VGELayer extends VGEData<ImageryLayer> {
         super(viewer);
     }
 
-    async addData(sourceItem: ResourceItem): Promise<any> {
-        let prop = sourceItem.properties;
+    async addData(resourceItem: ResourceItem): Promise<any> {
+        let prop = resourceItem.properties;
         let url = prop.url;
         let layer = null;
 
         switch (prop.scheme) {
             case layerSchemeEnum['layer-wms']:
-                layer = this.addWebMapTileServiceImageryProvider(url, sourceItem);
+                layer = this.addWebMapTileServiceImageryProvider(url, resourceItem);
                 break;
             case  layerSchemeEnum['layer-tms']:
-                layer = this.addImageryXYZ_TMS_Provider(url, sourceItem);
+                layer = this.addImageryXYZ_TMS_Provider(url, resourceItem);
                 break;
             case  layerSchemeEnum['layer-wmts']:
-                layer = this.addWebMapTileServiceImageryProvider(url, sourceItem);
+                layer = this.addWebMapTileServiceImageryProvider(url, resourceItem);
                 break;
             case  layerSchemeEnum['layer-singleTileImagery']:
-                layer = this.addSingleTileImagery(url, sourceItem);
+                layer = this.addSingleTileImagery(url, resourceItem);
                 break;
             case  layerSchemeEnum['layer-xyz-3857']:
-                layer = this.addImageryXYZ_3857_Provider(url, sourceItem);
+                layer = this.addImageryXYZ_3857_Provider(url, resourceItem);
                 break;
             case  layerSchemeEnum['layer-xyz-4326']:
-                layer = this.addImageryXYZ_4326_Provider(url, sourceItem);
+                layer = this.addImageryXYZ_4326_Provider(url, resourceItem);
                 break;
             case  layerSchemeEnum['layer-arcgisMapServer']:
-                layer = this.addArcGisMapServerImagery(url, sourceItem);
+                layer = this.addArcGisMapServerImagery(url, resourceItem);
                 break;
             case  layerSchemeEnum['layer-geoserver']:
-                layer = this.addGeoserverWMS(url, sourceItem);
+                layer = this.addGeoserverWMS(url, resourceItem);
                 break;
-            case  layerSchemeEnum['IonImageryProvider']:
-                layer = this.addImageryProvider(await Cesium.IonImageryProvider.fromAssetId(sourceItem.properties.assetId), sourceItem);
+            case  layerSchemeEnum['IonImageryProvider']: {
+                let img = await Cesium.IonImageryProvider.fromAssetId(resourceItem.properties.assetId);
+                layer = this.addImageryProvider(img, resourceItem);
                 break;
+            }
             default: {
                 console.log('数据项，缺少图层类型标识符', prop);
                 return null;
             }
         }
 
-        this.instancesMap.set(sourceItem.pid, layer);
-        this.sourcesItems.push(sourceItem);
         return layer;
     }
 
@@ -103,6 +103,7 @@ class VGELayer extends VGEData<ImageryLayer> {
         return this.addImageryProvider(new Cesium.SingleTileImageryProvider({
             url: url,
             rectangle: layerRectangle,
+            show: param.show || true,
             tileWidth: param.properties.tileWidth || 256,
             tileHeight: param.properties.tileHeight || 256
         }), param);
@@ -117,6 +118,7 @@ class VGELayer extends VGEData<ImageryLayer> {
             style: '',
             tileMatrixSetID: '',
             url: resource,
+            show: param.show || true,
             format: 'image/jpeg'
         });
         return this.addImageryProvider(provider, param);
@@ -128,6 +130,7 @@ class VGELayer extends VGEData<ImageryLayer> {
 
         let imageryProvider = new Cesium.TileMapServiceImageryProvider({
             url: resource,
+            show: param.show || true,
             minimumLevel: param.properties.minimumLevel || 0,
             maximumLevel: param.properties.maximumLevel || 22
         });
@@ -157,6 +160,7 @@ class VGELayer extends VGEData<ImageryLayer> {
 
         let imageryProvider = new Cesium.UrlTemplateImageryProvider({
             url: resource,
+            show: param.show || true,
             tilingScheme: new Cesium.WebMercatorTilingScheme(),
             minimumLevel: param.properties.minimumLevel || 0,
             maximumLevel: param.properties.maximumLevel || 22,
@@ -171,6 +175,7 @@ class VGELayer extends VGEData<ImageryLayer> {
         let resource = new Cesium.Resource({url, queryParameters});
         let imageryProvider = new Cesium.UrlTemplateImageryProvider({
             url: resource,
+            show: param.show || true,
             tilingScheme: new Cesium.GeographicTilingScheme({
                 numberOfLevelZeroTilesX: 2,
                 numberOfLevelZeroTilesY: 1
@@ -187,6 +192,7 @@ class VGELayer extends VGEData<ImageryLayer> {
         let resource = new Cesium.Resource({url, queryParameters});
         let provider = new Cesium.ArcGisMapServerImageryProvider({
             url: resource,
+            show: param.show || true,
             enablePickFeatures: false
         });
 
@@ -199,6 +205,7 @@ class VGELayer extends VGEData<ImageryLayer> {
         let resource = new Cesium.Resource({url, queryParameters});
         const provider = new Cesium.WebMapServiceImageryProvider({
             url: resource,
+            show: param.show || true,
             layers: param.properties.layers,
             parameters: {
                 service: 'WMS',
@@ -209,19 +216,19 @@ class VGELayer extends VGEData<ImageryLayer> {
         return this.addImageryProvider(provider, param);
     }
 
-    addImageryProvider(provider: ImageryProvider, param: ResourceItem) {
+    addImageryProvider(provider: ImageryProvider, resourceItem: ResourceItem) {
         const layer = this.viewer.imageryLayers.addImageryProvider(provider);
         if (layer) {
             // @ts-ignore
-            layer.pid = param.pid;
+            layer.pid = resourceItem.pid;
             // @ts-ignore
-            layer.param = param;
+            layer.param = resourceItem;
             // 如果该图层是底图，则把该图层降到最底层
-            if (param.properties.baseLayer) {
+            if (resourceItem.properties.baseLayer) {
                 this.viewer.imageryLayers.lowerToBottom(layer);
             }
-            this.instancesMap.set(param.pid, layer);
-            this.sourcesItems.push(param);
+            this.instancesMap.set(resourceItem.pid, layer);
+            this.sourcesItems.push(resourceItem);
         }
 
         return layer;

@@ -4,7 +4,7 @@
 
  日期：2021年2月16日
  ****************************************************************************/
-let Util = {
+let Utils = {
 
     // speechSynthsis: 执行语音合成 (实验)
     // 使用SpeechSynthesisUtterance.voice和window.speechSynthesis.getVoices()将邮件转换为语音。
@@ -71,7 +71,7 @@ let Util = {
                     let fileData = evt.target.result;
                     endFunc && endFunc({fileName, filePath, fileType, fileData});
                 } catch (e) {
-                    errFunc && errFunc('文件已损坏');
+                    errFunc && errFunc('文件已损坏', e);
                 }
             };
         };
@@ -80,4 +80,4 @@ let Util = {
 
 };
 
-export { Util };
+export { Utils };

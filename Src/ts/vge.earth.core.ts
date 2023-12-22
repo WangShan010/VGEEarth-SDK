@@ -132,6 +132,10 @@ export { RunEntityController } from './Core/RunEntityController/index';
 export { WorkSpace } from './Core/WorkSpace/index';
 
 
+// TreeMana
+export { TreeMana } from './Core/TreeMana/index';
+export { ZTreeMana } from './Core/TreeMana/lib/ZTreeMana';
+
 // Utils  CameraUtils
 export * as CameraUtils from './Utils/CameraUtils/index';
 export { getCameraHeight } from './Utils/index';
@@ -173,6 +177,6 @@ export { HTTPTool } from './Utils/index';
 export { MathTool } from './Utils/index';
 export { SafeTool } from './Utils/index';
 export { StringTool } from './Utils/index';
-export { Util } from './Utils/index';
+export { Utils } from './Utils/index';
 
 

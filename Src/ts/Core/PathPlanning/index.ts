@@ -17,6 +17,11 @@ let startingPointPng = require('../../../img/pathPlaning/start.png');
 let endPointPng = require('../../../img/pathPlaning/end.png');
 let tjdPng = require('../../../img/pathPlaning/tjd.png');
 
+enum RoutingServiceType {
+    'AMap' = 'AMap',
+    'GraphHopper' = 'GraphHopper'
+}
+
 class PathPlanning {
     private viewer: Viewer;
     private dataSourceToo: CustomDataSource;
@@ -35,9 +40,9 @@ class PathPlanning {
     private naviData: any;
 
     //路径导航服务类型，0：高德地图服务，1：开源GraphHopper服务。默认为高德地图服务。
-    private routingServiceType: number;
+    private routingServiceType: RoutingServiceType;
 
-    constructor(viewer: Viewer, _routingServiceType: number) {
+    constructor(viewer: Viewer, _routingServiceType: RoutingServiceType) {
         this.dataSourceToo = new Cesium.CustomDataSource('路径规划-实体集合');
         this.drawShape = new DrawShape(viewer);
         this.startingPointEntity = null;
@@ -50,7 +55,7 @@ class PathPlanning {
         this.endPoint = {longitude: 0, latitude: 0, height: 0};
         this.passPointArr = [];
         this.avoidRanges = [];
-        this.routingServiceType = _routingServiceType || 0;
+        this.routingServiceType = _routingServiceType || RoutingServiceType.AMap;
         this.naviData = null;
         this.viewer = viewer;
 
@@ -102,14 +107,21 @@ class PathPlanning {
     // 选取避让区
     async takeAvoidRange() {
         this.clearRoads();
-        this.drawShape.drawPolygon({
-            coordinateType: CoordinateType.cartographicObj,
-            endCallback: (ps: WorldDegree[]) => {
-                this.avoidRanges.push(ps);
-                let r = this.dataSourceToo.entities.add(pathCore.entityAvoidRange(ps));
-                this.avoidRangeEntityArr.push(r);
-            }
+        return new Promise((resolve, reject) => {
+            this.drawShape.drawPolygon({
+                coordinateType: CoordinateType.cartographicObj,
+                endCallback: (ps: WorldDegree[]) => {
+                    this.avoidRanges.push(ps);
+                    let r = this.dataSourceToo.entities.add(pathCore.entityAvoidRange(ps));
+                    this.avoidRangeEntityArr.push(r);
+                    resolve(this.avoidRangeEntityArr);
+                },
+                errCallback: () => {
+                    reject([]);
+                }
+            });
         });
+
     }
 
     // 清除途径点
@@ -157,7 +169,7 @@ class PathPlanning {
         });
 
         // 路线
-        if (this.routingServiceType == 0) {
+        if (this.routingServiceType === RoutingServiceType.AMap) {
             console.log('使用高德地图服务');
             this.naviData.paths.forEach((path: any, index: number) => {
                 if (index !== pathIndex) {
@@ -174,7 +186,7 @@ class PathPlanning {
                 let road = this.dataSourceToo.entities.add(pathCore.entityNaviLine(polyLine, String(index + 1)));
                 this.roadEntityArr.push(road);
             });
-        } else if (this.routingServiceType == 1) {
+        } else {
             console.log('使用GraphHopper服务');
             this.naviData.forEach((path: any, index: number) => {
                 if (index !== pathIndex) {
@@ -199,9 +211,9 @@ class PathPlanning {
     // 执行路径规划
     async runNavigation() {
         let naviData;
-        if (this.routingServiceType == 0) {
+        if (this.routingServiceType === RoutingServiceType.AMap) {
             naviData = await pathCore.navigation(this.startingPoint, this.endPoint, this.passPointArr, this.avoidRanges);
-        } else if (this.routingServiceType == 1) {
+        } else {
             naviData = await pathCore_GH.navigation(this.startingPoint, this.endPoint, this.passPointArr, this.avoidRanges);
         }
         if (naviData == null)
@@ -221,7 +233,6 @@ class PathPlanning {
         this.startingPointEntity = null;
         this.endPointEntity = null;
         this.naviData = null;
-        this.routingServiceType = 0;
 
         this.startingPoint = {longitude: 0, latitude: 0, height: 0};
         this.endPoint = {longitude: 0, latitude: 0, height: 0};

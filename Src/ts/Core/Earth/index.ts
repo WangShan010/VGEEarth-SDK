@@ -34,7 +34,8 @@ import { PlotTool } from '../PlotTool/index';
 import { DrawShape } from '../DrawShape/index';
 import { InfoBox } from './lib/InfoBox';
 import { AsyncTool } from '../../Utils/index';
-
+import { ConfigTool } from '../Config/ConfigTool';
+import { DefaultConfig } from '../Config/DefaultConfig';
 
 /**
  * 名称：用于创建地球的构造类
@@ -68,6 +69,8 @@ class Earth {
     overviewMap: OverviewMap | undefined;
     linkOLMap23D: LinkOLMap23D | undefined;
 
+    config = ConfigTool;
+
     drawShape: DrawShape;
     // 默认生成的量测工具
     measureTool: MeasureTool;
@@ -94,8 +97,7 @@ class Earth {
         Object.assign(options, option);
 
         this.viewer3D = new Cesium.Viewer('viewer3DDom', options);
-        this.addCache();
-        this.#initViewer3DScreenEvent();
+        this.initViewer3DScreenEvent();
         initViewerStata(this.viewer3D);
         initViewer3DStata(this.viewer3D);
 
@@ -122,6 +124,13 @@ class Earth {
         this.viewer3D.scene.screenSpaceCameraController._zoomFactor = 3;
     }
 
+    async thenLoadComplete() {
+        while (!this.loadComplete) {
+            await AsyncTool.sleep(500);
+        }
+        return true;
+    }
+
     // 开启 Cesium 二三维联动
     async openCesiumMapLink23d() {
         if (!this.viewer2D) {
@@ -141,13 +150,6 @@ class Earth {
             this.viewer2D = viewer2D;
         }
         DomMana.initCesiumMapLink23d();
-    }
-
-    async thenLoadComplete() {
-        while (!this.loadComplete) {
-            await AsyncTool.sleep(500);
-        }
-        return true;
     }
 
     /**
@@ -221,6 +223,9 @@ class Earth {
         let odTimer = setInterval(() => {
             if (this.loadComplete) {
                 debugMana.open();
+                window.CesiumNetworkPlug.OfflineCacheController.getDiskSpeed().then((e: any) => {
+                    DefaultConfig.computerSpeed = e;
+                });
                 clearInterval(odTimer);
             }
         }, 100);
@@ -231,15 +236,7 @@ class Earth {
         debugMana.close();
     }
 
-    addCache() {
-        const CesiumNetworkPlug = window.CesiumNetworkPlug;
-        CesiumNetworkPlug.OfflineCacheController.ruleList.add('aliyuncs.com');
-        CesiumNetworkPlug.OfflineCacheController.ruleList.add('webst04.is.autonavi.com');
-        CesiumNetworkPlug.OfflineCacheController.ruleList.add('openstreetmap');
-        CesiumNetworkPlug.OfflineCacheController.ruleList.add('api.mapbox.com');
-        CesiumNetworkPlug.OfflineCacheController.ruleList.add('assets.cesium.com');
-    }
-
+    // 清空 indexedDB 缓存数据
     clearCache() {
         const CesiumNetworkPlug = window.CesiumNetworkPlug;
         CesiumNetworkPlug.OfflineCacheController.clear();
@@ -265,7 +262,7 @@ class Earth {
     };
 
     // 初始化屏幕事件
-    #initViewer3DScreenEvent() {
+    private initViewer3DScreenEvent() {
         let that = this;
         const viewer = that.viewer3D;
         let handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);

@@ -8,8 +8,9 @@ const OSMLayersList: ResourceItem[] = [
         catalog: '电子地图',
         dataType: DataTypeEnum.layer,
         showInTree: true,
-        defaultLoad: false,
-        offlineCache: true,
+        defaultLoad: true,
+        show: true,
+        offlineCache: false,
         properties: {
             scheme: 'layer-xyz-3857',
             url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -23,8 +24,9 @@ const OSMLayersList: ResourceItem[] = [
         catalog: '电子地图',
         dataType: DataTypeEnum.layer,
         showInTree: true,
-        defaultLoad: false,
-        offlineCache: true,
+        defaultLoad: true,
+        show: true,
+        offlineCache: false,
         properties: {
             scheme: 'layer-xyz-3857',
             url: 'https://a.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',

@@ -1,5 +1,6 @@
 import { ConfigImpl } from './ConfigImpl';
 import { DataTypeEnum } from './Resource/DataTypeEnum';
+import { layerSchemeEnum } from './Resource/layerSchemeEnum';
 
 /****************************************************************************
  名称：默认 配置参数
@@ -7,7 +8,8 @@ import { DataTypeEnum } from './Resource/DataTypeEnum';
  最后修改日期：2023-08-14
  ****************************************************************************/
 const DefaultConfig: ConfigImpl = {
-    Version: '2023.09.28',
+    Version: 'V2023-12-22',
+    computerSpeed: 1,
     Token: '',
     appName: 'VGEEarth WebGL平台',
     appTitle: 'VGEEarth',
@@ -25,10 +27,11 @@ const DefaultConfig: ConfigImpl = {
             dataType: DataTypeEnum.layer,
             showInTree: false,
             defaultLoad: true,
+            show: true,
             offlineCache: false,
             properties: {
                 baseLayer: true,
-                scheme: 'layer-singleTileImagery',
+                scheme: layerSchemeEnum['layer-singleTileImagery'],
                 tileWidth: 2048,
                 tileHeight: 1024
             }

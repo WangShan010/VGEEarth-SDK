@@ -1,6 +1,6 @@
 {
   "name": "vge-earth-sdk",
-  "version": "2023.09.28",
+  "version": "2023.12.13",
   "description": "",
   "scripts": {
     "build": "webpack",

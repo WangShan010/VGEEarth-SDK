@@ -74,12 +74,18 @@ const EntityFactory = {
             position: Cesium.Cartesian3.fromDegrees(centerGeoJson.geometry.coordinates[0], centerGeoJson.geometry.coordinates[1], height),
             label: {
                 text: distance,
-                font: '21px SimSun',
-                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                outlineWidth: 2,
+                font: '14pt bold monospace',
                 fillColor: Cesium.Color.WHITE,
+                outlineColor: Cesium.Color.BLACK,
+                outlineWidth: 4,
+                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                color: Cesium.Color.RED,
+                backgroundColor: Cesium.Color.RED,
+                heightReference: Cesium.HeightReference.NONE,
+                verticalOrigin: Cesium.VerticalOrigin.TOP,
+                horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
                 disableDepthTestDistance: Number.POSITIVE_INFINITY,
-                pixelOffset: new Cesium.Cartesian2(30, -30)
+                pixelOffset: new Cesium.Cartesian2(0, -30)
             }
         });
     },
@@ -123,12 +129,18 @@ const EntityFactory = {
             position: Cesium.Cartesian3.fromDegrees(cartesianHasHeight.longitude, cartesianHasHeight.latitude, cartesianHasHeight.height),
             label: {
                 text: label,
-                font: '21px SimSun',
-                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                outlineWidth: 2,
+                font: '14pt bold monospace',
                 fillColor: Cesium.Color.WHITE,
+                outlineColor: Cesium.Color.BLACK,
+                outlineWidth: 4,
+                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                color: Cesium.Color.RED,
+                backgroundColor: Cesium.Color.RED,
+                heightReference: Cesium.HeightReference.NONE,
+                verticalOrigin: Cesium.VerticalOrigin.TOP,
+                horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
                 disableDepthTestDistance: Number.POSITIVE_INFINITY,
-                pixelOffset: new Cesium.Cartesian2(30, -30)
+                pixelOffset: new Cesium.Cartesian2(0, -30)
             }
         });
     },
@@ -225,15 +237,19 @@ const EntityFactory = {
                 heightReference: Cesium.HeightReference.NONE
             },
             label: {
-                showBackground: true,
-                horizontalOrigin: Cesium.HorizontalOrigin.LEFT,
-                verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-                // pixelOffset : new Cesium.Cartesian2(50, -10),
                 text: text,
-                font: '18px sans-serif',
-                fillColor: Cesium.Color.GOLD,
-                outlineWidth: 2,
-                disableDepthTestDistance: 10000
+                font: '14pt bold monospace',
+                fillColor: Cesium.Color.WHITE,
+                outlineColor: Cesium.Color.BLACK,
+                outlineWidth: 4,
+                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                color: Cesium.Color.RED,
+                backgroundColor: Cesium.Color.RED,
+                heightReference: Cesium.HeightReference.NONE,
+                verticalOrigin: Cesium.VerticalOrigin.TOP,
+                horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+                disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                pixelOffset: new Cesium.Cartesian2(0, -30)
             }
         });
     },
@@ -249,12 +265,10 @@ const EntityFactory = {
             label: {
                 text: text,
                 font: '14pt bold monospace',
-
                 fillColor: Cesium.Color.WHITE,
                 outlineColor: Cesium.Color.BLACK,
                 outlineWidth: 4,
                 style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                // @ts-ignore
                 color: Cesium.Color.RED,
                 backgroundColor: Cesium.Color.RED,
                 heightReference: Cesium.HeightReference.NONE,

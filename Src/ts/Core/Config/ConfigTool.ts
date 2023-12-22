@@ -10,6 +10,9 @@ import { TerrainList } from './Resource/TerrainList';
 import { BingMapLayerList } from './Resource/BingMapLayerList';
 import { DataTypeEnum } from './Resource/DataTypeEnum';
 import { SafeTool } from '../../Utils/YaoDo/Source/SafeTool';
+import { ResourceItemTool } from './Resource/ResourceItemTool';
+import { getEarth } from '../Earth/lib/getEarth';
+import { AMapLayerList } from './Resource/AMapLayerList';
 
 
 let config: ConfigImpl = DefaultConfig;
@@ -17,7 +20,13 @@ let config: ConfigImpl = DefaultConfig;
 /**
  * 名称：SDK 配置参数 的操作工具
  *
+ *  重要的核心模块！本模块是开发人员控制 SDK 配置参数行为的重要途径。
+ *  可以通过本模块的方法，对系统的全局配置参数进行导出、导入、编辑等操作。
+ *
+ *  还可以通过本模块的方法，向系统中添加资源项，包括地形、影像、模型、矢量数据等。
+ *
  *  最后修改日期：2023-08-14
+ *
  */
 const ConfigTool = {
 
@@ -66,81 +75,108 @@ const ConfigTool = {
         addUUId(config);
     },
 
-    /**
-     * 加载 OSM 影像
-     * @param show
-     */
-    addOSMOnLine(show = false) {
-        config.layerList.push(...OSMLayersList.map(item => {
-            item.defaultLoad = show;
-            return item;
-        }));
-    },
-    addMapBoxOnAliYun(show = false) {
-        let layer = JSON.parse(JSON.stringify(MapBoxLayerList[0]));
+    async addOSMOnLine(show = false) {
+        const layer = JSON.parse(JSON.stringify(OSMLayersList[0]));
         layer.defaultLoad = show;
-        config.layerList.push(layer);
+        layer.show = show;
+        await this.addResourceItem(layer);
     },
-    addBingMapOnIon(show = false) {
-        config.layerList.push(...BingMapLayerList.map(item => {
-            item.defaultLoad = show;
-            return item;
-        }));
+    async addOSMElevationOnline(show = false) {
+        const layer = JSON.parse(JSON.stringify(OSMLayersList[1]));
+        layer.defaultLoad = show;
+        layer.show = show;
+        await this.addResourceItem(layer);
     },
-    addTerrainOnIon(show = false) {
-        let terrain = JSON.parse(JSON.stringify(TerrainList[0]));
+    async addAMapSatelliteLayerOnLine(show = false) {
+        const layer = JSON.parse(JSON.stringify(AMapLayerList[0]));
+        layer.defaultLoad = show;
+        layer.show = show;
+        await this.addResourceItem(layer);
+    },
+    async addAMapLayerOnLine(show = false) {
+        const layer = JSON.parse(JSON.stringify(AMapLayerList[1]));
+        layer.defaultLoad = show;
+        layer.show = show;
+        await this.addResourceItem(layer);
+    },
+    async addMapBoxOnAliYun(show = false) {
+        const layer = JSON.parse(JSON.stringify(MapBoxLayerList[0]));
+        layer.defaultLoad = show;
+        layer.show = show;
+        await this.addResourceItem(layer);
+    },
+    async addBingMapOnIon(show = false) {
+        const layer = JSON.parse(JSON.stringify(BingMapLayerList[0]));
+        layer.defaultLoad = show;
+        layer.show = show;
+        await this.addResourceItem(layer);
+    },
+    async addBingMapHasLabelOnIon(show = false) {
+        const layer = JSON.parse(JSON.stringify(BingMapLayerList[1]));
+        layer.defaultLoad = show;
+        layer.show = show;
+        await this.addResourceItem(layer);
+    },
+    async addTerrainOnIon(show = false) {
+        const terrain = JSON.parse(JSON.stringify(TerrainList[0]));
         terrain.defaultLoad = show;
-        config.terrainList.push(terrain);
+        terrain.show = show;
+        await this.addResourceItem(terrain);
     },
-    addTerrainOnAliYun(show = false) {
-        let terrain = JSON.parse(JSON.stringify(TerrainList[1]));
+    async addTerrainOnAliYun(show = false) {
+        const terrain = JSON.parse(JSON.stringify(TerrainList[1]));
         terrain.defaultLoad = show;
-        config.terrainList.push(terrain);
+        terrain.show = show;
+        await this.addResourceItem(terrain);
     },
 
-    /**
-     * 添加资源项
-     * @param item
-     */
-    addSourcesItem(item: ResourceItem) {
-        switch (String(item.dataType)) {
-            case DataTypeEnum.layer: {
-                config.layerList.push(item);
+    async addResourceItem(item: ResourceItem) {
+        const resourceItem = ResourceItemTool.completeParams(item);
+        if (this.getResourcesByPid(resourceItem.pid)) {
+            console.log('无法向配置文件添加重复的资源项');
+        } else {
+            switch (String(resourceItem.dataType)) {
+                case DataTypeEnum.layer: {
+                    config.layerList.push(resourceItem);
+                }
+                    break;
+                case DataTypeEnum.terrain: {
+                    config.terrainList.push(resourceItem);
+                }
+                    break;
+                case DataTypeEnum.gltf: {
+                    config.modelList.push(resourceItem);
+                }
+                    break;
+                case DataTypeEnum.Cesium3DTile: {
+                    config.cesium3DTileSetList.push(resourceItem);
+                }
+                    break;
+                case DataTypeEnum.geoJson: {
+                    config.geoJsonList.push(resourceItem);
+                }
+                    break;
+                case DataTypeEnum.poi: {
+                    config.poiList.push(resourceItem);
+                }
+                    break;
+                case DataTypeEnum.water: {
+                    console.log('暂不支持展示水体');
+                }
+                    break;
             }
-                break;
-            case DataTypeEnum.terrain: {
-                config.terrainList.push(item);
+            try {
+                const earth = getEarth();
+                if (earth && earth.viewer3DWorkSpace) {
+                    await earth.viewer3DWorkSpace.addData(resourceItem);
+                }
+            } catch (e) {
+
             }
-                break;
-            case DataTypeEnum.gltf: {
-                config.modelList.push(item);
-            }
-                break;
-            case DataTypeEnum.Cesium3DTile: {
-                config.cesium3DTileSetList.push(item);
-            }
-                break;
-            case DataTypeEnum.geoJson: {
-                config.geoJsonList.push(item);
-            }
-                break;
-            case DataTypeEnum.poi: {
-                config.poiList.push(item);
-            }
-                break;
-            case DataTypeEnum.water: {
-                console.log('展示不支持水体');
-            }
-                break;
         }
-        addUUId(config);
-        EventMana.configEvent.raiseEvent(ListenType.ConfigEventType.addData, ScopeType.global, {});
+        return resourceItem;
     },
-    /**
-     * 获取资源项
-     * @param pid
-     */
-    getSourcesItemByPid(pid: string) {
+    getResourcesByPid(pid: string) {
         return this.getAllSources().find(item => {
             return item.pid === pid;
         });
@@ -159,7 +195,7 @@ const ConfigTool = {
     getBaseLayer() {
         let s = this.config;
         return s.layerList.find((item: ResourceItem) => {
-            return item.dataType === 'layer' && item.defaultLoad && item.properties.baseLayer;
+            return item.dataType === 'layer' && item.properties.baseLayer;
         });
     },
     getBaseTerrain() {
@@ -180,13 +216,7 @@ function addUUId(config: ConfigImpl) {
     config.poiList = filter(config.poiList);
 
     function filter(sourcesArr: ResourceItem[] = []) {
-        sourcesArr.map(item => {
-            item.pid = item.pid || SafeTool.uuid();
-            item.defaultLoad = item.defaultLoad || false;
-            item.showInTree = 'showInTree' in item ? item.showInTree : true;
-        });
-
-        return sourcesArr;
+        return sourcesArr.map(item => ResourceItemTool.completeParams(item));
     }
 
     return config;

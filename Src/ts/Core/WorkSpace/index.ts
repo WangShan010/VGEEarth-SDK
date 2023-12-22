@@ -21,11 +21,11 @@ import { DataTypeEnum } from '../Config/Resource/DataTypeEnum';
 import { VGEGLTF } from './dataMana/VGEGLTF';
 import { VGEWater } from './dataMana/VGEWater';
 import * as listenType from '../EventMana/impl/ListenType';
-import { SafeTool } from '../../Utils/index';
 import { ScopeType } from '../EventMana/impl/ScopeType';
 import { SourceEvent } from '../EventMana/lib/SourceEvent';
 import { EventMana } from '../EventMana/EventMana';
 import { AsyncTool } from '../../Utils/index';
+import { ResourceItemTool } from '../Config/Resource/ResourceItemTool';
 
 class WorkSpace {
     private readonly scopeType: ScopeType;
@@ -82,51 +82,38 @@ class WorkSpace {
 
     // 加载数据
     addData = async (sourceItem: ResourceItem) => {
-        const nodes = this.getNodes();
-        let ds = null;
-        let err;
+        let resourceInstance = null;
+        let loadErr;
 
-        if (!this.checkSourceItem(sourceItem)) {
+        if (!ResourceItemTool.checkSourceItem(sourceItem)) {
             console.log('该资源项不合法', sourceItem);
-            return ds;
+            return null;
+        } else {
+            sourceItem = ResourceItemTool.completeParams(sourceItem);
         }
 
-        if (!sourceItem.pid) {
-            sourceItem.pid = SafeTool.uuid();
-        }
 
-        sourceItem = JSON.parse(JSON.stringify(sourceItem));
-
-        let old = nodes.find(item => sourceItem.pid === item.pid);
+        let old = this.getNodes().find(item => sourceItem.pid === item.pid);
         if (old) {
             console.warn('工作区已加载该数据!不允许重复加载：', sourceItem.name);
-            return ds;
+            return this.getInstances(sourceItem.pid);
         } else {
-
             let mes = ScopeType[this.scopeType] + ' 正在加载数据：' + sourceItem.name;
 
             mes = sourceItem.offlineCache ? mes + '，已开启 IndexDB 缓存' : mes;
             console.info('%c' + mes, 'color:green');
         }
 
+        // 添加解密规则
         if (sourceItem.decryptionKey) {
-            if (!sourceItem.netRootPaths) {
-                console.warn('参数异常，资源项的 netRootPaths 参数为必填！：', sourceItem);
-                return ds;
-            }
-
             sourceItem.netRootPaths?.forEach(host => {
                 window.CesiumNetworkPlug.DecryptionController.ruleMap.set(sourceItem.netRootPaths, sourceItem.decryptionKey);
             });
         }
+        // 添加缓存规则
         if (sourceItem.offlineCache) {
-            if (!sourceItem.netRootPaths) {
-                console.warn('参数异常，资源项的 netRootPaths 参数为必填！：', sourceItem);
-                return ds;
-            }
-
             sourceItem.netRootPaths?.forEach(host => {
-                window.CesiumNetworkPlug.OfflineCacheController.ruleList.add(`${host}`);
+                window.CesiumNetworkPlug.OfflineCacheController.ruleList.add(host);
             });
         }
 
@@ -134,35 +121,41 @@ class WorkSpace {
         // 注释
         switch (String(sourceItem.dataType)) {
             case DataTypeEnum.layer:
-                [err, ds] = await AsyncTool.awaitWrap(this.layerMana.addData(sourceItem));
+                [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this.layerMana.addData(sourceItem));
                 break;
             case DataTypeEnum.terrain:
-                [err, ds] = await AsyncTool.awaitWrap(this.terrainMana.addData(sourceItem));
+                [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this.terrainMana.addData(sourceItem));
                 break;
             case DataTypeEnum.gltf:
-                [err, ds] = await AsyncTool.awaitWrap(this.gltfMana.addData(sourceItem));
+                [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this.gltfMana.addData(sourceItem));
                 break;
             case DataTypeEnum.Cesium3DTile:
-                [err, ds] = await AsyncTool.awaitWrap(this._3DTileMana.addData(sourceItem));
+                [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this._3DTileMana.addData(sourceItem));
                 break;
             case DataTypeEnum.geoJson:
-                [err, ds] = await AsyncTool.awaitWrap(this.geoJsonMana.addData(sourceItem));
+                [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this.geoJsonMana.addData(sourceItem));
                 break;
             case DataTypeEnum.water:
-                [err, ds] = await AsyncTool.awaitWrap(this.waterMana.addData(sourceItem));
+                [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this.waterMana.addData(sourceItem));
                 break;
             case DataTypeEnum.poi:
-                [err, ds] = await AsyncTool.awaitWrap(this.poiMana.addData(sourceItem));
+                [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this.poiMana.addData(sourceItem));
                 break;
             default: {
                 console.log('无效资源项');
             }
         }
 
+        if (loadErr) {
+            console.error('加载数据失败：', sourceItem.name, loadErr);
+            return null;
+        }
+
+
         // 添加数据到数组中
         this.sourceEvent.raiseEvent(listenType.DataEventType.addData, this.scopeType, sourceItem);
 
-        return ds;
+        return resourceInstance;
     };
 
     // 移除数据
@@ -211,15 +204,17 @@ class WorkSpace {
         return nodes;
     }
 
+    getInstances(pid: string) {
+        let instances: any = this.layerMana.instancesMap.get(pid);
+        instances = instances || this.terrainMana.instancesMap.get(pid);
+        instances = instances || this._3DTileMana.instancesMap.get(pid);
+        instances = instances || this.geoJsonMana.instancesMap.get(pid);
+        instances = instances || this.waterMana.instancesMap.get(pid);
+        instances = instances || this.gltfMana.instancesMap.get(pid);
+        instances = instances || this.poiMana.instancesMap.get(pid);
 
-    // 检查资源项的合法性
-    checkSourceItem = (sourceItem: ResourceItem): boolean => {
-        let right = true;
-        right = right && !!sourceItem;
-        right = right && !!sourceItem.properties;
-
-        return right;
-    };
+        return instances;
+    }
 }
 
 export { WorkSpace };

@@ -43,6 +43,11 @@ class BaseEvent implements EventImpl {
             return false;
         }
     }
+
+
+    removeAllListener(){
+        this.listenCallbacks = [];
+    }
 }
 
 export { BaseEvent };

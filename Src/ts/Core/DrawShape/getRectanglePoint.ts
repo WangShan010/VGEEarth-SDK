@@ -10,12 +10,12 @@ import { Cartesian3 } from 'cesium';
  */
 function getRectanglePoint(start: Cartesian3, end: Cartesian3) {
     // start 的经纬度
-    let cartographic1 = getMainViewer().scene.globe.ellipsoid.cartesianToCartographic(start);
+    let cartographic1 = Cesium.Ellipsoid.WGS84.cartesianToCartographic(start);
     let lon1 = Cesium.Math.toDegrees(cartographic1.longitude); // 经度
     let lat1 = Cesium.Math.toDegrees(cartographic1.latitude); // 纬度
 
     // end 的经纬度
-    let cartographic2 = getMainViewer().scene.globe.ellipsoid.cartesianToCartographic(
+    let cartographic2 = Cesium.Ellipsoid.WGS84.cartesianToCartographic(
         end);
     let lon2 = Cesium.Math.toDegrees(cartographic2.longitude); // 经度
     let lat2 = Cesium.Math.toDegrees(cartographic2.latitude); // 纬度

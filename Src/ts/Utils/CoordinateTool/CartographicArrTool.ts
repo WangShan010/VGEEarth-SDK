@@ -16,7 +16,7 @@ const CartographicArrTool = {
     // 输出格式：
     // let coordinates = [108.14700948231935, 30.795471733827313, 1145.012060885598];
     formCartesian3(p: Cartesian3) {
-        let ellipsoid = getMainViewer().scene.globe.ellipsoid;
+        let ellipsoid = Cesium.Ellipsoid.WGS84;
         let cartesian3 = new Cesium.Cartesian3(p.x, p.y, p.z);
         let cartographic = ellipsoid.cartesianToCartographic(cartesian3);
         let lon = Cesium.Math.toDegrees(cartographic.longitude);

@@ -1,14 +1,13 @@
-import { Cesium } from '../Impl/Declare';
+import { Polygon } from 'GeoJSON';
 import { Cartesian3, DataSource, Viewer } from 'cesium';
 
-// 导入模块
+import { Cesium } from '../Impl/Declare';
 import { CartographicTool } from '../../Utils/CoordinateTool/CartographicTool';
 import { EntityFactory } from '../ExpandEntity/EntityFactory/index';
 import { DrawShape } from '../DrawShape/index';
-import { Polygon } from 'GeoJSON';
-import { getTerrainMostDetailedHeight } from '../../Utils/SceneUtils/getTerrainMostDetailedHeight';
 import { getMostDetailedHeight } from '../../Utils/SceneUtils/getMostDetailedHeight';
 import { GISMathUtils } from '../../Utils/GISMathUtils/index';
+import * as cesium from 'cesium';
 
 /**
  * 测量工具类
@@ -40,19 +39,13 @@ class MeasureTool {
                     new Cesium.CallbackProperty(() => heightStr, false))
                 );
 
-                let cartographic = Cesium.Cartographic.fromCartesian(positions[0]);
-
                 let [cartesianHasHeight] = await getMostDetailedHeight([{
-                    longitude: cartographic.longitude * 180 / Math.PI,
-                    latitude: cartographic.latitude * 180 / Math.PI,
+                    longitude: position.longitude,
+                    latitude: position.latitude,
                     height: 0
                 }]);
 
                 let height = cartesianHasHeight.height;
-
-                if (height === 0 || height < -500) {
-                    height = await getTerrainMostDetailedHeight(position.longitude, position.latitude) || 0;
-                }
 
                 heightStr = height.toFixed(3) + ' m';
             }
@@ -68,9 +61,13 @@ class MeasureTool {
             endCallback: (positions: Cartesian3[]) => {
                 if (positions.length === 2) {
                     that.#dataSourceToo.entities.add(EntityFactory.createHeightEllipse(positions));
+                    const worldDegree = CartographicTool.formCartesian3(positions[0]);
+                    const heightDifference = GISMathUtils.getHeight(positions);
                     that.#dataSourceToo.entities.add(
-                        EntityFactory.PointLabelEntity(positions[0],
-                            new Cesium.CallbackProperty(() => GISMathUtils.getHeight(positions) + '米', false))
+                        EntityFactory.PointLabelEntity(
+                            Cesium.Cartesian3.fromDegrees(worldDegree.longitude, worldDegree.latitude, worldDegree.height + heightDifference),
+                            GISMathUtils.getHeight(positions) + '米'
+                        )
                     );
                 }
             }
@@ -148,7 +145,7 @@ class MeasureTool {
                     that.#dataSourceToo.entities.add(EntityFactory.createLightingPolygon(positions));
                     let geoJson: Polygon = {
                         type: 'Polygon',
-                        coordinates: [CartographicTool.formCartesian3S(positions).map(item => [item.longitude, item.latitude])]
+                        coordinates: [CartographicTool.formCartesian3S(positions).map(item => [item.longitude, item.latitude, item.height])]
                     };
                     that.#dataSourceToo.entities.add(await EntityFactory.polygonCenterLabel(geoJson, '面积'));
                 } else {
@@ -170,7 +167,7 @@ class MeasureTool {
                     that.#dataSourceToo.entities.add(EntityFactory.createLightingPolygon(positions));
                     let geoJson: Polygon = {
                         type: 'Polygon',
-                        coordinates: [CartographicTool.formCartesian3S(positions).map(item => [item.longitude, item.latitude])]
+                        coordinates: [CartographicTool.formCartesian3S(positions).map(item => [item.longitude, item.latitude, item.height])]
                     };
                     that.#dataSourceToo.entities.add(await EntityFactory.polygonCenterLabel(geoJson, '周长'));
                 } else {

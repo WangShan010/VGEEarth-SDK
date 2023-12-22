@@ -9,20 +9,25 @@ const BingMapLayerList: ResourceItem[] = [
         dataType: DataTypeEnum.layer,
         showInTree: true,
         defaultLoad: true,
-        offlineCache: true,
-        netRootPaths: [
-            'http://ecn.t0.tiles.virtualearth.net/tiles/',
-            'http://ecn.t1.tiles.virtualearth.net/tiles/',
-            'http://ecn.t2.tiles.virtualearth.net/tiles/',
-            'http://ecn.t3.tiles.virtualearth.net/tiles/',
-            'https://ecn.t0.tiles.virtualearth.net/tiles/',
-            'https://ecn.t1.tiles.virtualearth.net/tiles/',
-            'https://ecn.t2.tiles.virtualearth.net/tiles/',
-            'https://ecn.t3.tiles.virtualearth.net/tiles/'
-        ],
+        show: true,
+        offlineCache: false,
         properties: {
             scheme: 'IonImageryProvider',
             assetId: 2
+        }
+    },
+    {
+        pid: '5bc9728a-2ad1-8160-70c1-9ae4a14876a3',
+        name: 'Bing Maps - 带标注',
+        catalog: '基础影像',
+        dataType: DataTypeEnum.layer,
+        showInTree: true,
+        defaultLoad: true,
+        show: true,
+        offlineCache: false,
+        properties: {
+            scheme: 'IonImageryProvider',
+            assetId: 3
         }
     }
 ];

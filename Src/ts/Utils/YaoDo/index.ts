@@ -13,4 +13,4 @@ export { HTTPTool } from './Source/HTTPTool';
 export { MathTool } from './Source/MathTool';
 export { SafeTool } from './Source/SafeTool';
 export { StringTool } from './Source/StringTool';
-export { Util } from './Source/Utils';
+export { Utils } from './Source/Utils';

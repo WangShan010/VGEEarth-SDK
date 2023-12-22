@@ -17,7 +17,8 @@ import { PolylineLightingMaterial } from '../ExpandEntity/Material/Polyline/lib/
 import { GISMathUtils } from '../../Utils/GISMathUtils/index';
 import { EntityFactory } from '../ExpandEntity/EntityFactory/index';
 import { CoordinateType } from './CoordinateType';
-
+import { CartographicTool } from '../../Utils/CoordinateTool/CartographicTool';
+import { DrawShapeOptions } from './DrawShapeOptions';
 
 const commitEndCallBack = (coordinateType: CoordinateType | null | undefined, endCallback: Function | null | undefined, ps: Cartesian3[]) => {
     if (typeof endCallback === 'function') {
@@ -26,33 +27,47 @@ const commitEndCallBack = (coordinateType: CoordinateType | null | undefined, en
     }
 };
 
-interface DrawShapeOptions {
-    position?: any,
-    normal?: any,
-    dimensions?: any,
-    coordinateType?: CoordinateType | null | undefined,
-    endCallback?: Function | null,
-    moveCallback?: Function | null,
-    errCallback?: Function | null
-}
-
 
 /**
  *  名称：坐标采集工具
+ *
  *  描述：支持：【画点】、【画线】、【画多折线】、【画角度】、【画多边形】、【画圆】、【画矩形】、【画斜矩形】，返回坐标
  *
- *  默认返回的数据格式是笛卡尔坐标系：
  *
- * positions = [
- *   {"x":-2170133.6691256277,"y":4662743.784446367,"z":3759613.917915065},
- *   {"x":-2170143.223638534,"y":4663097.568298324,"z":3759172.906975031},
- *   {"x":-2170616.8730793963,"y":4662536.019548276,"z":3759592.791057056},
- *   {"x":-2170133.6691256277,"y":4662743.784446367,"z":3759613.917915065}
- * ]
+ *  @remarks
+ *  命名空间：window.VGEEarth.DrawShape
  *
- * 支持的输出格式：cartesian（默认）、cartographicObj、cartographicArr
+ *
+ *  支持的输出格式：cartesian（默认）、cartographicObj、cartographicArr
  *
  *  最后修改日期：2022-02-28
+ *
+ *  @example
+ *
+ *  const drawShape = new DrawShape(this.viewer3D);
+ *  let positions = [];
+ *  drawShape.drawPolyLine(({endCallback:(e)=>{positions=e}}))
+ *
+ *  // 默认返回的数据格式是笛卡尔坐标系
+ *  positions = [
+ *    {"x":-2170133.6691256277,"y":4662743.784446367,"z":3759613.917915065},
+ *    {"x":-2170143.223638534,"y":4663097.568298324,"z":3759172.906975031},
+ *    {"x":-2170616.8730793963,"y":4662536.019548276,"z":3759592.791057056},
+ *    {"x":-2170133.6691256277,"y":4662743.784446367,"z":3759613.917915065}
+ *  ]
+ *
+ * // 如果需要返回经纬度数组坐标，可以在调用的时候传入坐标类型
+ *  drawShape.drawPolyLine(({
+ *      coordinateType: “cartographicArr”,
+ *      endCallback:(e)=>{positions=e}
+ *  }));
+ *
+ * // 或者返回经纬度对象
+ *  drawShape.drawPolyLine(({
+ *      coordinateType: “cartographicObj”,
+ *      endCallback:(e)=>{positions=e}
+ *  }))
+ *
  */
 class DrawShape {
     public viewer!: Viewer;
@@ -88,7 +103,13 @@ class DrawShape {
     }
 
     // 画点函数
-    public drawPoint({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
+    public drawPoint(drawShapeOptions: DrawShapeOptions) {
+        const {
+            coordinateType,
+            endCallback,
+            moveCallback,
+            errCallback
+        } = drawShapeOptions;
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -120,7 +141,13 @@ class DrawShape {
     };
 
     // 画线函数
-    public drawLine({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
+    public drawLine(drawShapeOptions: DrawShapeOptions) {
+        const {
+            coordinateType,
+            endCallback,
+            moveCallback,
+            errCallback
+        } = drawShapeOptions;
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -200,7 +227,13 @@ class DrawShape {
     };
 
     // 画多折线
-    public drawPolyLine({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
+    public drawPolyLine(drawShapeOptions: DrawShapeOptions) {
+        const {
+            coordinateType,
+            endCallback,
+            moveCallback,
+            errCallback
+        } = drawShapeOptions;
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -272,7 +305,13 @@ class DrawShape {
     };
 
     // 画角度
-    public drawTriangle({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
+    public drawTriangle(drawShapeOptions: DrawShapeOptions) {
+        const {
+            coordinateType,
+            endCallback,
+            moveCallback,
+            errCallback
+        } = drawShapeOptions;
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -360,7 +399,13 @@ class DrawShape {
     };
 
     // 画多边形
-    public drawPolygon({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
+    public drawPolygon(drawShapeOptions: DrawShapeOptions) {
+        const {
+            coordinateType,
+            endCallback,
+            moveCallback,
+            errCallback
+        } = drawShapeOptions;
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -422,7 +467,14 @@ class DrawShape {
     };
 
     // 画圆
-    public drawCircle({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
+    public drawCircle(drawShapeOptions: DrawShapeOptions) {
+        const {
+            coordinateType,
+            endCallback,
+            moveCallback,
+            errCallback
+        } = drawShapeOptions;
+
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -503,19 +555,21 @@ class DrawShape {
         }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
         // 鼠标右击事件，表示结束取消
-        handler.setInputAction((event: any) => {
+        handler.setInputAction(() => {
             that.drawShapeErrorCallback(null);
         }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
     };
 
     /**
      * 画矩形
-     * @param coordinateType
-     * @param endCallback
-     * @param moveCallback
-     * @param errCallback
      */
-    public drawRectangle({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
+    public drawRectangle(drawShapeOptions: DrawShapeOptions) {
+        const {
+            coordinateType,
+            endCallback,
+            moveCallback,
+            errCallback
+        } = drawShapeOptions;
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -587,12 +641,14 @@ class DrawShape {
 
     /**
      * 画斜距形
-     * @param coordinateType
-     * @param endCallback
-     * @param moveCallback
-     * @param errCallback
      */
-    public drawInclinedRectangle({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
+    public drawInclinedRectangle(drawShapeOptions: DrawShapeOptions) {
+        const {
+            coordinateType,
+            endCallback,
+            moveCallback,
+            errCallback
+        } = drawShapeOptions;
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -672,7 +728,13 @@ class DrawShape {
     };
 
     // 画高差
-    public drawHeightDistinct({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
+    public drawHeightDistinct(drawShapeOptions: DrawShapeOptions) {
+        const {
+            coordinateType,
+            endCallback,
+            moveCallback,
+            errCallback
+        } = drawShapeOptions;
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -690,9 +752,15 @@ class DrawShape {
                     that.coordinates.push(earthPosition);
                     that.coordinates.push(earthPosition);
                     that.dataSourceToo.entities.add(EntityFactory.createHeightEllipse(that.coordinates));
+
+                    const worldDegree = CartographicTool.formCartesian3(that.coordinates[0]);
+
                     that.dataSourceToo.entities.add(
                         EntityFactory.PointLabelEntity(
-                            that.coordinates[0],
+                            new Cesium.CallbackProperty(() => {
+                                const heightDifference = GISMathUtils.getHeight(that.coordinates);
+                                return Cesium.Cartesian3.fromDegrees(worldDegree.longitude, worldDegree.latitude, worldDegree.height + heightDifference);
+                            }, false),
                             new Cesium.CallbackProperty(() => GISMathUtils.getHeight(that.coordinates) + '米', false)
                         )
                     );
@@ -889,4 +957,4 @@ class DrawShape {
 }
 
 
-export { DrawShape };
+export { DrawShape, DrawShapeOptions, CoordinateType };

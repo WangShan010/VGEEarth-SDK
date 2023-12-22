@@ -27,7 +27,7 @@ class ZTreeMana {
         this.viewer = viewer;
         this.scopeType = scopeType;
         this.customOption = customOption;
-        this.workSpace = scopeType === ScopeType.Viewer3D ? getEarth().viewer3DWorkSpace : getEarth().viewer2DWorkSpace;
+        this.workSpace = <WorkSpace>(scopeType === ScopeType.Viewer3D ? getEarth().viewer3DWorkSpace : getEarth().viewer2DWorkSpace);
 
         this.treeNodes = this.getTreeNodeByConfig();
         // @ts-ignore
@@ -69,7 +69,7 @@ class ZTreeMana {
         let treeNodes = [];
         // 获取配置文件中全部的资源
         let configList = ConfigTool.getAllSources();
-        configList = configList.filter(item => item.showInTree);
+        configList = configList.filter((item: any) => item.showInTree);
         // 对数据列表进行分组
         let nodeGroupArr = arrGrouping(configList, 'catalog') as any[];
         let firstGroup = ['基础影像', '电子地图', '地形图层'];

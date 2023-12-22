@@ -20,7 +20,6 @@
     "./ts/Core/RunEntityController/index.ts",
     "./ts/Core/WorkSpace/index.ts",
 
-
     "./ts/Utils/CameraUtils/index.ts",
     "./ts/Utils/CoordinateTool/index.ts",
     "./ts/Utils/GISMathUtils/index.ts",

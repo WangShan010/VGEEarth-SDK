@@ -37,4 +37,4 @@ export { HTTPTool } from './YaoDo/index';
 export { MathTool } from './YaoDo/index';
 export { SafeTool } from './YaoDo/index';
 export { StringTool } from './YaoDo/index';
-export { Util } from './YaoDo/index';
+export { Utils } from './YaoDo/index';

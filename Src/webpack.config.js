@@ -19,9 +19,10 @@ let all = {
     mode: 'production',
     entry: './index.ts',
     output: {
-        path: path.resolve(__dirname, `../Demo/Src/dist`),
-        // path: path.resolve(__dirname, `../Demo/Src/LTS-${getFormatDate()}`),
-        filename: `VGEEarth.js`
+        path: path.resolve(__dirname, `../Demo/Src/Basic-Master`),
+        filename: `VGEEarth-${getFormatDate()}.js`,
+        // path: path.resolve(__dirname, `../Demo/Src/dist`),
+        // filename: `VGEEarth.js`
     },
     resolve: {
         extensions: ['.ts', '.js']

@@ -77,7 +77,7 @@ function getHeight(positions: Cartesian3[]) {
     let cartographic = Cesium.Cartographic.fromCartesian(positions[0]);
     let cartographic1 = Cesium.Cartographic.fromCartesian(positions[1]);
     let height_temp = (cartographic1.height - cartographic.height) || 0;
-    return height_temp.toFixed(2);
+    return Number(height_temp.toFixed(2));
 }
 
 

@@ -5,8 +5,8 @@
  ****************************************************************************/
 
 const Ion = {
-    // Cesium 1.110 Token
-    defaultAccessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhYjVkZWE2Yi05ZjlmLTQyOTAtYjFkOC0xMmFmZTYyMjhmZGIiLCJpZCI6MjU5LCJpYXQiOjE2OTYyNjgyMzN9.iKIgzd7PueqxXsUNSIhk5C6n8uiugH-Dxy9uhOdJ5Zg'
+    // Cesium 1.112 Token
+    defaultAccessToken:  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzN2UwMjViMC0xOTJhLTQxMmItOWEzMS1kMjJiNmZiY2E5N2YiLCJpZCI6MjU5LCJpYXQiOjE3MDE0NTc1NjB9.bMNhc7S4cuG1qUnRUiLxr5lunSH1k6-UfkRXSqVFYyM"
 };
 
 export { Ion };

@@ -1,10 +1,3 @@
-/****************************************************************************
- 名称：图上标绘功能
- 描述：非常复杂。。。好累啊，不想加班了
-
- 最后修改日期：2022-04-12
- ****************************************************************************/
-
 import { Cartesian3, Viewer } from 'cesium';
 import { GeoJSON } from 'GeoJSON';
 import { DrawShape } from '../DrawShape/index';
@@ -22,7 +15,14 @@ let SelEntityID: string = '';
 
 
 /**
- * 图上标绘功能
+ * 模块名称：图上标绘功能
+ *
+ * 该模块主要实现了图上标绘功能，包括点、线、面、模型的添加、删除、修改、导入、导出等功能。
+ *
+ * 但考虑到标绘功能的复杂性，不建议直接使用该模块，而是直接在 MetaVGE-3DVis-Vue3 中使用 PlotToolVue 组件。
+ *
+ *
+ * 最后修改日期：2022-04-12
  */
 class PlotTool {
     #MoveEntityID: string = '';
@@ -280,11 +280,12 @@ class PlotTool {
 }
 
 function cursorMove(event: { endPosition: Cartesian3 }) {
-    let pickedFeature = getMainViewer().scene.pick(event?.endPosition);
-    if (pickedFeature?.id) {
-        // document.body.style.cursor = 'pointer';
-        MoveEntityID = pickedFeature?.id?.id;
-    }
+    // 造成非常严重的性能问题，暂时注释
+    // let pickedFeature = getMainViewer().scene.pick(event?.endPosition);
+    // if (pickedFeature?.id) {
+    //     // document.body.style.cursor = 'pointer';
+    //     MoveEntityID = pickedFeature?.id?.id;
+    // }
 }
 
 function cursorCilk(event: { position: Cartesian3 }) {

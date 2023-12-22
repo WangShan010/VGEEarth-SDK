@@ -47,10 +47,9 @@ function initViewerStata(viewer: Viewer) {
         }
     });
 
-    // 是否开启抗锯齿
+    // 是否开启抗锯齿，开启抗锯齿会导致文字模糊
     // @ts-ignore
-    viewer.scene.fxaa = true;
-    viewer.scene.postProcessStages.fxaa.enabled = true;
+    viewer.scene.postProcessStages.fxaa.enabled = false;
 
     // setTimeout(function () {
     //   // 打开系统页面三秒后，视角飞到初始位置
