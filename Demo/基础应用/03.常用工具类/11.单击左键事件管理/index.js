@@ -19,6 +19,6 @@ VGEEarth.EventMana.screenEvent.addEventListener(
     (e) => {
         let pick = earth.viewer3D.scene.pick(e.position);
 
-        alert(pick.id.name);
+        alert(pick?.id?.name);
     }
 );

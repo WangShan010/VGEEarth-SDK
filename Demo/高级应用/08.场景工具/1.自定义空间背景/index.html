@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../../Ext/Cesium/^1.112/Cesium.js"></script>
+    <link href="../../../Ext/Cesium/^1.112/Widgets/widgets.css" rel="stylesheet">
+    <script src="../../../Ext/Cesium-Navigation/^1.1.4/viewerCesiumNavigationMixin.js"></script>
+    <script src="../../../Src/dist/VGEEarth.js"></script>
+</head>
+<body>
+<div class="ctrlPanel">
+    <div class="btn-group">
+        <button class="btn btn-default" onclick="setCustomBgImage(0)" type="button">空间背景1</button>
+        <button class="btn btn-default" onclick="setCustomBgImage(1)" type="button">空间背景2</button>
+        <button class="btn btn-default" onclick="clearCustomBg()" type="button">重置</button>
+    </div>
+</div>
+<div id="MapContainer" style="width: 100%;height: 100%"></div>
+<script src="index.js" type="module"></script>
+</body>
+</html>

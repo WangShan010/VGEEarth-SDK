@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../../Ext/Cesium/^1.112/Cesium.js"></script>
+    <link href="../../../Ext/Cesium/^1.112/Widgets/widgets.css" rel="stylesheet">
+    <script src="../../../Ext/Cesium-Navigation/^1.1.4/viewerCesiumNavigationMixin.js"></script>
+    <script src="../../../Src/dist/VGEEarth.js"></script>
+
+
+    <script src="../../../Ext/jQuery/^2.1.4/jquery-2.1.4.min.js"></script>
+    <script src="../../../Ext/Bootstrap/^3.4.1/js/bootstrap.min.js"></script>
+    <link href="../../../Ext/Bootstrap/^3.4.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="ctrlPanel" style="width: 380px">
+    <div>
+        <div>
+            示例：
+        </div>
+        <label>
+            <select id="resourceItemSelect" class="form-control input-sm" style="width: 200px" onchange="switchData()">
+                <option>1</option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <div>
+            资源代码：
+        </div>
+        <label>
+            <textarea id="resourceItemCode" class="form-control input-sm" rows="15" cols="45"></textarea>
+        </label>
+    </div>
+    <div style="text-align: center">
+        <button class="btn btn-success" onclick="addData()" type="button">添加资源</button>
+        <button class="btn btn-warning" onclick="removeAllData()" type="button">重置</button>
+    </div>
+</div>
+<div id="MapContainer" style="width: 100%;height: 100%"></div>
+<script src="index.js" type="module"></script>
+</body>
+</html>
