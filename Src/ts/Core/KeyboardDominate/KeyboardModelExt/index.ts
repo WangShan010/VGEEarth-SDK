@@ -93,15 +93,17 @@ class KeyboardModelExt {
         this.hpRoll = new Cesium.HeadingPitchRoll();
         this.fixedFrameTransforms = Cesium.Transforms.localFrameToFixedFrameGenerator('north', 'west');
 
-        this.addModelPrimitive();
-        this.registerEvens();
-        this.enable = true;
+
+        this.addModelPrimitive().then(e => {
+            this.registerEvens();
+            this.enable = true;
+        });
     }
 
     /**
      * 添加模型*/
-    addModelPrimitive() {
-        this.moveModel = this.viewer.scene.primitives.add(Cesium.Model.fromGltf({
+    async addModelPrimitive() {
+        this.moveModel = this.viewer.scene.primitives.add(await Cesium.Model.fromGltfAsync({
             url: this.keyboardModelExtOptions.modelUrl,
             modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(this.position, this.hpRoll, Cesium.Ellipsoid.WGS84, this.fixedFrameTransforms),
             scale: this.keyboardModelExtOptions.scale,

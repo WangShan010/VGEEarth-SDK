@@ -74,39 +74,6 @@ export { bouncePoint } from './Core/ExpandEntity/NormalEntity/index';
 export { BouncePointDecorator } from './Core/ExpandEntity/NormalEntity/index';
 export { buildBillboard } from './Core/ExpandEntity/NormalEntity/index';
 
-export { BaseDecorator } from './Core/ExpandEntity/SuperiorEntity/impl/BaseDecorator';
-export { IDomPoint } from './Core/ExpandEntity/SuperiorEntity/impl/point';
-export { SuperiorEntityImpl } from './Core/ExpandEntity/SuperiorEntity/impl/SuperiorEntityImpl';
-
-export { AlertMarker } from './Core/ExpandEntity/SuperiorEntity/index';
-export { AreaLabel } from './Core/ExpandEntity/SuperiorEntity/index';
-export { DeviceStatusWindowDecorator } from './Core/ExpandEntity/SuperiorEntity/index';
-export { DivPoint } from './Core/ExpandEntity/SuperiorEntity/index';
-export { DynamicDivLabel } from './Core/ExpandEntity/SuperiorEntity/index';
-export { ErectLabelPoint } from './Core/ExpandEntity/SuperiorEntity/index';
-export { FloatMarker } from './Core/ExpandEntity/SuperiorEntity/index';
-export { GradientLabelPoint } from './Core/ExpandEntity/SuperiorEntity/index';
-export { HlsVideoWindow } from './Core/ExpandEntity/SuperiorEntity/index';
-export { HlsVideoWindowDecorator } from './Core/ExpandEntity/SuperiorEntity/index';
-export { HotSpotBoardPoint } from './Core/ExpandEntity/SuperiorEntity/index';
-export { LeafletPopup } from './Core/ExpandEntity/SuperiorEntity/index';
-export { LEDLabel } from './Core/ExpandEntity/SuperiorEntity/index';
-export { Liquidfill } from './Core/ExpandEntity/SuperiorEntity/index';
-export { MultiFieldAdaptWindow } from './Core/ExpandEntity/SuperiorEntity/index';
-export { PointCluster1 } from './Core/ExpandEntity/SuperiorEntity/index';
-export { PopupWindow1Decorator } from './Core/ExpandEntity/SuperiorEntity/index';
-export { PopupWindow2Decorator } from './Core/ExpandEntity/SuperiorEntity/index';
-export { PrimitiveGradientAppearance } from './Core/ExpandEntity/SuperiorEntity/index';
-export { PrimitiveLabelCol } from './Core/ExpandEntity/SuperiorEntity/index';
-export { SimpleLabel } from './Core/ExpandEntity/SuperiorEntity/index';
-export { SimpleLabelDecorator } from './Core/ExpandEntity/SuperiorEntity/index';
-export { WaterPolygon } from './Core/ExpandEntity/SuperiorEntity/index';
-
-
-// ExpandLayer
-export { EchartsLayer } from './Core/ExpandLayer/index';
-export { MapVLayer } from './Core/ExpandLayer/index';
-
 
 // HandlerMana
 export { HandlerMana } from './Core/HandlerMana/index';
@@ -125,9 +92,6 @@ export { KeyboardModel } from './Core/KeyboardDominate/index';
 export { KeyboardModelExt } from './Core/KeyboardDominate/index';
 
 export { MeasureTool } from './Core/MeasureTool/index';
-export { PathPlanning } from './Core/PathPlanning/index';
-export { PlotDataSource } from './Core/PlotTool/lib/PlotDataSource';
-export { PlotTool } from './Core/PlotTool/index';
 export { RunEntityController } from './Core/RunEntityController/index';
 export { WorkSpace } from './Core/WorkSpace/index';
 

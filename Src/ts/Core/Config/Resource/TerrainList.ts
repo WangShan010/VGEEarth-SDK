@@ -1,5 +1,5 @@
-import { DataTypeEnum } from './DataTypeEnum';
-import { ResourceItem } from './ResourceItem';
+import { DataTypeEnum } from '../Enum/DataTypeEnum';
+import { ResourceItem } from '../ResourceItem/ResourceItem';
 
 const TerrainList: ResourceItem[] = [
     {
@@ -24,15 +24,15 @@ const TerrainList: ResourceItem[] = [
         dataType: DataTypeEnum.terrain,
         showInTree: true,
         netRootPaths: [
-            'https://webgpu.top:3006/DBService/中国地形-加密/'
+            'https://bj.webgpu.top:3006/DBService/Terrain-China/'
         ],
         defaultLoad: true,
         show: true,
         offlineCache: false,
-        decryptionKey: 'SDcVrdKWEgjKPTGQgZ6zogd1U+ipK9DavJ1ewW36F8z8yqDX/9QVR4sAhynFg2Xy/ysWfNtq6fQxaQISn8YvJ4PIYdseKHRCfjGCJME7FOAhbfNve5S5UiBIfNj7fxarGWMMDlIRO/boCyI5n29pgERtTKl/XWDttQTh4gZbFhlguOTJWlryE1YUg4zcLtQdIV1mB90viuoEJNnwa7CG3GVXZD894LKiyZMx1OtkrP+IZyRIRe2mLaH55FHOhqIF',
+        decryptionKey: "SDcVrdKWEgjKPTGQgZ6zopwGq0R4FtrqQWPVsVdblFTKDA0q8vjiINRKLV16fdaYrRaZNwr613Mu/K5rMIkeXmku8nyAd7tTSNMULVZMrQc9+Qv4GMeu6vcPfRxY5Cn4R4O1VQWSbpoDkv9hwEsoIb8pHcs6JRlnbVBaEwna8T/R5EAy21YArQJcAOKJo2dejdSc3JKz1uLUSr/i0iMdFthhTGl3grgzySDVLfMrUjA=",
         properties: {
             scheme: 'CesiumTerrainProvider',
-            url: 'https://webgpu.top:3006/DBService/中国地形-加密/'
+            url: 'https://bj.webgpu.top:3006/DBService/Terrain-China/'
         }
     }
 ];

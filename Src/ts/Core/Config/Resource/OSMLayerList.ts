@@ -1,5 +1,5 @@
-import { DataTypeEnum } from './DataTypeEnum';
-import { ResourceItem } from './ResourceItem';
+import { DataTypeEnum } from '../Enum/DataTypeEnum';
+import { ResourceItem } from '../ResourceItem/ResourceItem';
 
 const OSMLayersList: ResourceItem[] = [
     {

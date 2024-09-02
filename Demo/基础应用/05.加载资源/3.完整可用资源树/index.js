@@ -164,8 +164,8 @@ config.poiList = poiList;
 config.cesium3DTileSetList = cesium3DTileSetList;
 config.geoJsonList = geoJsonList;
 
-VGEEarth.ConfigTool.addTerrainOnIon(true);
-VGEEarth.ConfigTool.addBingMapOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnAliYun(true);
+VGEEarth.ConfigTool.addBingMapOnAliYun(true);
 VGEEarth.ConfigTool.loadConfig(config);
 
 

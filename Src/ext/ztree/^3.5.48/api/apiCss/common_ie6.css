@@ -13,7 +13,7 @@ html pre {word-wrap: break-word}
 .contentBox {background-image: none;background-color: #F0F6E4;}
 .zTreeInfo {background-image: none;background-color: #F0F6E4;}
 
-.content button.ico16 {*background-image:url("img/apiMenu.gif")}
+.content button.ico16 {background-image:url("img/apiMenu.gif")}
 .siteTag {background-image: none;}
 .apiContent .right {float: right;padding-right: 50px;}
 

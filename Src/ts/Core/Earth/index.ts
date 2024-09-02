@@ -30,12 +30,13 @@ import * as ListenType from '../EventMana/impl/ListenType';
 import { ScopeType } from '../EventMana/impl/ScopeType';
 import { initViewer3DStata } from './lib/initViewer3DStata';
 import { MeasureTool } from '../MeasureTool/index';
-import { PlotTool } from '../PlotTool/index';
 import { DrawShape } from '../DrawShape/index';
 import { InfoBox } from './lib/InfoBox';
 import { AsyncTool } from '../../Utils/index';
 import { ConfigTool } from '../Config/ConfigTool';
 import { DefaultConfig } from '../Config/DefaultConfig';
+import { CesiumDateFormatter, CesiumDateTimeFormatter, CesiumTimeFormatter } from './lib/locale-zhCn';
+
 
 /**
  * 名称：用于创建地球的构造类
@@ -74,8 +75,6 @@ class Earth {
     drawShape: DrawShape;
     // 默认生成的量测工具
     measureTool: MeasureTool;
-    // 默认生成的标绘工具
-    plotTool: PlotTool;
 
     infoBox: InfoBox;
     // 初始化坐标与高度的监听
@@ -108,20 +107,40 @@ class Earth {
 
         // 载入资源
         loadSource3DData(this.viewer3D, this.viewer3DWorkSpace).then(async () => {
-            this.loadComplete = true;
+
+            if (ConfigTool.config.startAnimation) {
+                this.startAnimation.activate().then(() => {
+                    this.loadComplete = true;
+                });
+            } else {
+                this.loadComplete = true;
+            }
         });
-        // @ts-ignore
-        window.earth = this;
 
         this.viewer3D.scene.debugShowFramesPerSecond = true;
+        this.viewer3D.resolutionScale = window.devicePixelRatio;
         this.drawShape = new DrawShape(this.viewer3D);
         this.measureTool = new MeasureTool(this.viewer3D);
-        this.plotTool = new PlotTool(this.viewer3D);
         this.infoBox = new InfoBox(this.viewer3D);
 
         // 调整鼠标滚轮缩放速度，默认为 5，太快了
         // @ts-ignore
         this.viewer3D.scene.screenSpaceCameraController._zoomFactor = 3;
+
+        // @ts-ignore
+        window.earth = this;
+
+        if (this.viewer3D.animation) {
+            // @ts-ignore
+            this.viewer3D.animation.viewModel.dateFormatter = CesiumDateFormatter;
+            // @ts-ignore
+            this.viewer3D.animation.viewModel.timeFormatter = CesiumTimeFormatter;
+        }
+
+        if (this.viewer3D.timeline) {
+            // @ts-ignore
+            this.viewer3D.timeline.makeLabel = CesiumDateTimeFormatter;
+        }
     }
 
     async thenLoadComplete() {
@@ -148,6 +167,7 @@ class Earth {
 
             this.viewer2DWorkSpace = workSpace;
             this.viewer2D = viewer2D;
+            viewer2D.resolutionScale = window.devicePixelRatio;
         }
         DomMana.initCesiumMapLink23d();
     }
@@ -220,15 +240,9 @@ class Earth {
 
     // 开启调试模式
     openDeBug() {
-        let odTimer = setInterval(() => {
-            if (this.loadComplete) {
-                debugMana.open();
-                window.CesiumNetworkPlug.OfflineCacheController.getDiskSpeed().then((e: any) => {
-                    DefaultConfig.computerSpeed = e;
-                });
-                clearInterval(odTimer);
-            }
-        }, 100);
+        this.thenLoadComplete().then(() => {
+            debugMana.open();
+        });
     }
 
     // 关闭调试模式
@@ -236,15 +250,9 @@ class Earth {
         debugMana.close();
     }
 
-    // 清空 indexedDB 缓存数据
-    clearCache() {
-        const CesiumNetworkPlug = window.CesiumNetworkPlug;
-        CesiumNetworkPlug.OfflineCacheController.clear();
-    }
-
     getFPS() {
         // @ts-ignore
-        const fpsText = this.viewer3D.scene._performanceDisplay._fpsText?.data;
+        const fpsText = this.viewer3D.scene?._performanceDisplay?._fpsText?.data;
 
         return Number(fpsText?.replace(' FPS', ''));
     }

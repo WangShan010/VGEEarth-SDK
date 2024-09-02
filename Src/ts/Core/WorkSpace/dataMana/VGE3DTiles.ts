@@ -1,6 +1,6 @@
 import { Cesium3DTileset, Viewer } from 'cesium';
 import { Cesium } from '../../Impl/Declare';
-import { ResourceItem } from '../../Config/Resource/ResourceItem';
+import { ResourceItem } from '../../Config/ResourceItem/ResourceItem';
 import { offSetTileSetByCartographic } from '../../../Utils/TileSetUtils/index';
 import { VGEData } from './impl/VGEData';
 

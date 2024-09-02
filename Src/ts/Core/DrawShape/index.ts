@@ -1,24 +1,15 @@
-import { Cesium } from '../Impl/Declare';
-import {
-    CallbackProperty,
-    Cartesian3,
-    Color,
-    CustomDataSource,
-    Entity,
-    Material,
-    ScreenSpaceEventHandler,
-    Viewer
-} from 'cesium';
-import { getInclinedRectangle } from './getInclinedRectangle';
-import { getRectanglePoint } from './getRectanglePoint';
-import { coordinateTransform } from './coordinateTransform';
-import { HandlerMana } from '../HandlerMana/index';
-import { PolylineLightingMaterial } from '../ExpandEntity/Material/Polyline/lib/PolylineLightingMaterial';
-import { GISMathUtils } from '../../Utils/GISMathUtils/index';
-import { EntityFactory } from '../ExpandEntity/EntityFactory/index';
-import { CoordinateType } from './CoordinateType';
-import { CartographicTool } from '../../Utils/CoordinateTool/CartographicTool';
-import { DrawShapeOptions } from './DrawShapeOptions';
+import {Cesium} from '../Impl/Declare';
+import {CallbackProperty, Cartesian3, Color, CustomDataSource, Entity, Material, ScreenSpaceEventHandler, Viewer} from 'cesium';
+import {getInclinedRectangle} from './getInclinedRectangle';
+import {getRectanglePoint} from './getRectanglePoint';
+import {coordinateTransform} from './coordinateTransform';
+import {HandlerMana} from '../HandlerMana/index';
+import {PolylineLightingMaterial} from '../ExpandEntity/Material/Polyline/lib/PolylineLightingMaterial';
+import {GISMathUtils} from '../../Utils/GISMathUtils/index';
+import {EntityFactory} from '../ExpandEntity/EntityFactory/index';
+import {CoordinateType} from './CoordinateType';
+import {CartographicTool} from '../../Utils/CoordinateTool/CartographicTool';
+
 
 const commitEndCallBack = (coordinateType: CoordinateType | null | undefined, endCallback: Function | null | undefined, ps: Cartesian3[]) => {
     if (typeof endCallback === 'function') {
@@ -27,10 +18,19 @@ const commitEndCallBack = (coordinateType: CoordinateType | null | undefined, en
     }
 };
 
+interface DrawShapeOptions {
+    position?: any,
+    normal?: any,
+    dimensions?: any,
+    coordinateType?: CoordinateType | null | undefined,
+    endCallback?: Function | null,
+    moveCallback?: Function | null,
+    errCallback?: Function | null
+}
+
 
 /**
  *  名称：坐标采集工具
- *
  *  描述：支持：【画点】、【画线】、【画多折线】、【画角度】、【画多边形】、【画圆】、【画矩形】、【画斜矩形】，返回坐标
  *
  *
@@ -45,8 +45,6 @@ const commitEndCallBack = (coordinateType: CoordinateType | null | undefined, en
  *  @example
  *
  *  const drawShape = new DrawShape(this.viewer3D);
- *  let positions = [];
- *  drawShape.drawPolyLine(({endCallback:(e)=>{positions=e}}))
  *
  *  // 默认返回的数据格式是笛卡尔坐标系
  *  positions = [
@@ -55,18 +53,6 @@ const commitEndCallBack = (coordinateType: CoordinateType | null | undefined, en
  *    {"x":-2170616.8730793963,"y":4662536.019548276,"z":3759592.791057056},
  *    {"x":-2170133.6691256277,"y":4662743.784446367,"z":3759613.917915065}
  *  ]
- *
- * // 如果需要返回经纬度数组坐标，可以在调用的时候传入坐标类型
- *  drawShape.drawPolyLine(({
- *      coordinateType: “cartographicArr”,
- *      endCallback:(e)=>{positions=e}
- *  }));
- *
- * // 或者返回经纬度对象
- *  drawShape.drawPolyLine(({
- *      coordinateType: “cartographicObj”,
- *      endCallback:(e)=>{positions=e}
- *  }))
  *
  */
 class DrawShape {
@@ -86,7 +72,7 @@ class DrawShape {
     private returnPositions: Cartesian3[] = [];
 
 
-    private isDepthTest: boolean;
+    private isDepthTest: boolean = true;
 
     private handler: ScreenSpaceEventHandler;
 
@@ -96,20 +82,10 @@ class DrawShape {
 
         this.dataSourceToo = new Cesium.CustomDataSource('坐标采集工具-实体集合');
         viewer.dataSources.add(this.dataSourceToo).then();
-
-
-        // 查询当前视图是否开启了深度探测
-        this.isDepthTest = viewer.scene.globe.depthTestAgainstTerrain;
     }
 
     // 画点函数
-    public drawPoint(drawShapeOptions: DrawShapeOptions) {
-        const {
-            coordinateType,
-            endCallback,
-            moveCallback,
-            errCallback
-        } = drawShapeOptions;
+    public drawPoint({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -141,13 +117,7 @@ class DrawShape {
     };
 
     // 画线函数
-    public drawLine(drawShapeOptions: DrawShapeOptions) {
-        const {
-            coordinateType,
-            endCallback,
-            moveCallback,
-            errCallback
-        } = drawShapeOptions;
+    public drawLine({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -227,13 +197,7 @@ class DrawShape {
     };
 
     // 画多折线
-    public drawPolyLine(drawShapeOptions: DrawShapeOptions) {
-        const {
-            coordinateType,
-            endCallback,
-            moveCallback,
-            errCallback
-        } = drawShapeOptions;
+    public drawPolyLine({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -305,13 +269,7 @@ class DrawShape {
     };
 
     // 画角度
-    public drawTriangle(drawShapeOptions: DrawShapeOptions) {
-        const {
-            coordinateType,
-            endCallback,
-            moveCallback,
-            errCallback
-        } = drawShapeOptions;
+    public drawTriangle({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -399,13 +357,7 @@ class DrawShape {
     };
 
     // 画多边形
-    public drawPolygon(drawShapeOptions: DrawShapeOptions) {
-        const {
-            coordinateType,
-            endCallback,
-            moveCallback,
-            errCallback
-        } = drawShapeOptions;
+    public drawPolygon({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -467,14 +419,7 @@ class DrawShape {
     };
 
     // 画圆
-    public drawCircle(drawShapeOptions: DrawShapeOptions) {
-        const {
-            coordinateType,
-            endCallback,
-            moveCallback,
-            errCallback
-        } = drawShapeOptions;
-
+    public drawCircle({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -555,21 +500,19 @@ class DrawShape {
         }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
         // 鼠标右击事件，表示结束取消
-        handler.setInputAction(() => {
+        handler.setInputAction((event: any) => {
             that.drawShapeErrorCallback(null);
         }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
     };
 
     /**
      * 画矩形
+     * @param coordinateType
+     * @param endCallback
+     * @param moveCallback
+     * @param errCallback
      */
-    public drawRectangle(drawShapeOptions: DrawShapeOptions) {
-        const {
-            coordinateType,
-            endCallback,
-            moveCallback,
-            errCallback
-        } = drawShapeOptions;
+    public drawRectangle({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -641,14 +584,12 @@ class DrawShape {
 
     /**
      * 画斜距形
+     * @param coordinateType
+     * @param endCallback
+     * @param moveCallback
+     * @param errCallback
      */
-    public drawInclinedRectangle(drawShapeOptions: DrawShapeOptions) {
-        const {
-            coordinateType,
-            endCallback,
-            moveCallback,
-            errCallback
-        } = drawShapeOptions;
+    public drawInclinedRectangle({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -728,13 +669,7 @@ class DrawShape {
     };
 
     // 画高差
-    public drawHeightDistinct(drawShapeOptions: DrawShapeOptions) {
-        const {
-            coordinateType,
-            endCallback,
-            moveCallback,
-            errCallback
-        } = drawShapeOptions;
+    public drawHeightDistinct({coordinateType, endCallback, moveCallback, errCallback}: DrawShapeOptions) {
         let that = this;
         let handler = that.drawShapeStart();
         that.endCallback = endCallback;
@@ -957,4 +892,4 @@ class DrawShape {
 }
 
 
-export { DrawShape, DrawShapeOptions, CoordinateType };
+export {DrawShape};

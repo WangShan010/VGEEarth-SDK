@@ -8,19 +8,19 @@
      -webkit-border-radius: 5px;
      -moz-border-radius: 5px;
      border-radius: 5px;
-     max-width: 180px;
+     max-width: 250px;
      max-height: 134px;
      -webkit-user-select: none;
      -moz-user-select: none;
      -ms-user-select: none;
      user-select: none;
  }
- 
+
  .gradient-label:after {
      content: "";
      position: absolute;
      bottom: -60px;
-     left: calc(50% - 3px);
+     left: calc(50%);
      display: block;
      width: 3px;
      height: 60px;

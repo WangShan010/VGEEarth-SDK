@@ -1,5 +1,5 @@
-VGEEarth.ConfigTool.addTerrainOnIon(true);
-VGEEarth.ConfigTool.addBingMapOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnAliYun(true);
+VGEEarth.ConfigTool.addBingMapOnAliYun(true);
 
 const earth = new VGEEarth.Earth('MapContainer');
 earth.openDeBug();

@@ -7,7 +7,7 @@ import { Viewer } from 'cesium';
 
 function initViewer3DStata(viewer: Viewer) {
     // @ts-ignore
-    viewer.scene.msaaSamples = 8;
+    // viewer.scene.msaaSamples = 8;
 }
 
 export { initViewer3DStata };

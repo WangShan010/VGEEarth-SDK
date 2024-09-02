@@ -1,7 +1,5 @@
 /**
- * 全局配置信息管理模块
- *
- * 本模块主要用于管理配置系统的以下三类信息：
+ * 本模块用于配置系统的
  *
  * ① 数据资源，包括地形、影像、模型、矢量数据等
  *
@@ -16,7 +14,7 @@
 export { BingMapLayerList } from './Resource/BingMapLayerList';
 export { MapBoxLayerList } from './Resource/MapBoxLayerList';
 export { OSMLayersList } from './Resource/OSMLayerList';
-export { ResourceItem } from './Resource/ResourceItem';
+export { ResourceItem } from './ResourceItem/ResourceItem';
 export { TerrainList } from './Resource/TerrainList';
 export { ConfigImpl } from './ConfigImpl';
 export { ConfigTool } from './ConfigTool';

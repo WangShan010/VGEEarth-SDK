@@ -1,24 +1,11 @@
-import { ResourceItem } from './Resource/ResourceItem';
+import { ResourceItem } from './ResourceItem/ResourceItem';
 
 
 /**
- * 配置项参数的总体接口规范，用于约束配置项参数的类型。
- * 所有的配置项参数都应该遵循此接口规范。
+ * 配置项参数接口规范
  *
  * 最后修改日期：2022-03-18
- *
- *  @example
- *
- * // 可以通过：VGEEarth.ConfigTool.config 来访问此接口的实例，但不建议直接进行修改。
- * window.VGEEarth.ConfigTool.config
- *
- * // 可通过以下方式对配置项进行修改：
- * window.VGEEarth.ConfigTool.loadConfig(...)
- *
- *
  */
-
-
 interface ConfigImpl {
     /** SDK 的版本号，可由开发者去自定义 */
     Version: string,
@@ -41,6 +28,7 @@ interface ConfigImpl {
         pitchRadians?: number,
         rollRadians?: number
     },
+    flag: string,
     /** 是否显示从全球旋转然后推进到默认视角的加载动画 */
     startAnimation: boolean,
 

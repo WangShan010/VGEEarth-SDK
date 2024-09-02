@@ -1,5 +1,5 @@
 import { Cesium } from '../../Impl/Declare';
-import { ResourceItem } from '../../Config/Resource/ResourceItem';
+import { ResourceItem } from '../../Config/ResourceItem/ResourceItem';
 import { TerrainProvider, Viewer } from 'cesium';
 import { VGEData } from './impl/VGEData';
 import {SceneUtils} from '../../../Utils/SceneUtils/index'

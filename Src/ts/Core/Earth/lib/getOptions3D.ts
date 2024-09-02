@@ -2,7 +2,7 @@ function getOptions3D() {
     return {
         animation: false, // 是否显示动画控件
         homeButton: false, // 是否显示home键
-        geocoder: false, // 是否显示地名查找控件        如果设置为true，则无法查询
+        geocoder: false, // 是否显示地名查找控件
         baseLayerPicker: false, // 是否显示图层选择控件
         timeline: false, // 是否显示时间线控件
         fullscreenButton: false, // 是否全屏显示
@@ -16,6 +16,7 @@ function getOptions3D() {
         orderIndependentTranslucency: false,    // 如果为 true 并且配置支持它，请使用与顺序无关的半透明。
         shadows: false, // true时，地表透明会引起变暗，并闪烁??
         shouldAnimate: true,
+        imageryProvider: false,
         contextOptions: {
             webgl: {
                 requestWebgl2: true,

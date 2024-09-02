@@ -1,19 +1,20 @@
 {
   "name": "vge-earth-sdk",
-  "version": "2023.12.13",
+  "version": "2024.09.01",
   "description": "",
   "scripts": {
-    "build": "webpack",
+    "build": "node esbuild.config.js",
+    "build-old": "webpack",
     "doc": "typedoc"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^20.6.2"
   },
   "devDependencies": {
+    "esbuild": "^0.21.0",
     "@types/geojson": "^7946.0.10",
-    "@types/node": "^20.6.0",
+    "@types/node": "^20.10.6",
     "css-loader": "^6.8.1",
     "file-loader": "^6.2.0",
     "style-loader": "^3.3.3",

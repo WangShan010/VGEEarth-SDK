@@ -1,16 +1,13 @@
-VGEEarth.ConfigTool.addTerrainOnIon(true);
-VGEEarth.ConfigTool.addBingMapOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnAliYun(true);
+VGEEarth.ConfigTool.addBingMapOnAliYun(true);
 
 const earth = new VGEEarth.Earth('MapContainer');
 earth.createNavigation();
 earth.openDeBug();
 
 
-const host = 'https://vge-webgl.oss-cn-beijing.aliyuncs.com/encrypt/3DTiles-TianYi/';
-const passWorld = '795bc22d-c487-6fd6-ec77-56849171d53d';
 
-CesiumNetworkPlug.OfflineCacheController.ruleList.add('*');
-CesiumNetworkPlug.DecryptionController.ruleMap.set(`${host}`, passWorld);
+
 let s = {
     pid: '1234567890',
     name: '倾斜模型',
@@ -18,7 +15,7 @@ let s = {
     dataType: 'Cesium3DTile',
     defaultLoad: true,
     properties: {
-        url: host + 'tileset.json',
+        url: 'xxxxx/tileset.json',
         maximumScreenSpaceError: 2,
         maximumMemoryUsage: 8192,
         offset: {

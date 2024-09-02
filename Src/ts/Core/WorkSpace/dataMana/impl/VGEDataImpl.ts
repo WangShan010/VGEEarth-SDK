@@ -1,4 +1,4 @@
-import { ResourceItem } from '../../../Config/Resource/ResourceItem';
+import { ResourceItem } from '../../../Config/ResourceItem/ResourceItem';
 
 interface VGEDataImpl<T> {
     sourcesItems: ResourceItem[];

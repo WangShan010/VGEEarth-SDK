@@ -23,12 +23,12 @@ website:    http://code.google.com/p/jquerytree/
 .ztree li a.tmpTargetNode_prev {}
 .ztree li a.tmpTargetNode_next {}
 .ztree li a input.rename {height:14px; width:80px; padding:0; margin:0;
-  font-size:12px; border:1px #585956 solid; *border:0px}
+  font-size:12px; border:1px #585956 solid; border:0px}
 .ztree li span {line-height:21px; margin-right:2px}
 .ztree li span.button {line-height:0; margin:0; padding: 0; width:21px; height:21px; display: inline-block; vertical-align:middle;
   border:0 none; cursor: pointer;outline:none;
   background-color:transparent; background-repeat:no-repeat; background-attachment: scroll;
-  background-image:url("./img/metro.png"); *background-image:url("./img/metro.gif")}
+  background-image:url("./img/metro.png"); background-image:url("./img/metro.gif")}
 
 .ztree li span.button.chk {width:13px; height:13px; margin:0 2px; cursor: auto}
 .ztree li span.button.chk.checkbox_false_full {background-position: -5px -5px;}
@@ -69,28 +69,28 @@ website:    http://code.google.com/p/jquerytree/
 .ztree li span.button.bottom_docu{background-position: -84px -42px;}
 .ztree li span.button.noline_docu{ background:none;}
 
-.ztree li span.button.ico_open{margin-right:2px; background-position: -147px -21px; vertical-align:top; *vertical-align:middle}
-.ztree li span.button.ico_close{margin-right:2px; margin-right:2px; background-position: -147px 0; vertical-align:top; *vertical-align:middle}
-.ztree li span.button.ico_docu{margin-right:2px; background-position: -147px -42px; vertical-align:top; *vertical-align:middle}
-.ztree li span.button.edit {margin-left:2px; margin-right: -1px; background-position: -189px -21px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.ico_open{margin-right:2px; background-position: -147px -21px; vertical-align:top; vertical-align:middle}
+.ztree li span.button.ico_close{margin-right:2px; margin-right:2px; background-position: -147px 0; vertical-align:top; vertical-align:middle}
+.ztree li span.button.ico_docu{margin-right:2px; background-position: -147px -42px; vertical-align:top; vertical-align:middle}
+.ztree li span.button.edit {margin-left:2px; margin-right: -1px; background-position: -189px -21px; vertical-align:top; vertical-align:middle}
 .ztree li span.button.edit:hover {
   background-position: -168px -21px;
 }
-.ztree li span.button.remove {margin-left:2px; margin-right: -1px; background-position: -189px -42px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.remove {margin-left:2px; margin-right: -1px; background-position: -189px -42px; vertical-align:top; vertical-align:middle}
 .ztree li span.button.remove:hover {
   background-position: -168px -42px;
 }
-.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position: -189px 0; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position: -189px 0; vertical-align:top; vertical-align:middle}
 .ztree li span.button.add:hover {
   background-position: -168px 0;
 }
-.ztree li span.button.ico_loading{margin-right:2px; background:url(./img/loading.gif) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.ico_loading{margin-right:2px; background:url(./img/loading.gif) no-repeat scroll 0 0 transparent; vertical-align:top; vertical-align:middle}
 
 ul.tmpTargetzTree {background-color:#FFE6B0; opacity:0.8; filter:alpha(opacity=80)}
 
 span.tmpzTreeMove_arrow {width:16px; height:21px; display: inline-block; padding:0; margin:2px 0 0 1px; border:0 none; position:absolute;
     background-color:transparent; background-repeat:no-repeat; background-attachment: scroll;
-    background-position:-168px -84px; background-image:url("./img/metro.png"); *background-image:url("./img/metro.gif")}
+    background-position:-168px -84px; background-image:url("./img/metro.png"); background-image:url("./img/metro.gif")}
 
 ul.ztree.zTreeDragUL {margin:0; padding:0; position:absolute; width:auto; height:auto;overflow:hidden; background-color:#cfcfcf; border:1px #00B83F dotted; opacity:0.8; filter:alpha(opacity=80)}
 .ztreeMask {z-index:10000; background-color:#cfcfcf; opacity:0.0; filter:alpha(opacity=0); position:absolute}

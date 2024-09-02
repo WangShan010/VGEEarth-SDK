@@ -1,4 +1,4 @@
-import { ResourceItem } from '../../Config/Resource/ResourceItem';
+import { ResourceItem } from '../../Config/ResourceItem/ResourceItem';
 import { Cesium } from '../../Impl/Declare';
 import { CustomDataSource, Entity, Viewer } from 'cesium';
 import { VGEData } from './impl/VGEData';

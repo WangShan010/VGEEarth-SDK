@@ -15,17 +15,15 @@ import { VGELayer } from './dataMana/VGELayer';
 import { VGEPoi } from './dataMana/VGEPoi';
 import { VGETerrain } from './dataMana/VGETerrain';
 import { VGE3DTiles } from './dataMana/VGE3DTiles';
-import { VGEGeoJson } from './dataMana/VGEGeoJson';
-import { ResourceItem } from '../Config/Resource/ResourceItem';
-import { DataTypeEnum } from '../Config/Resource/DataTypeEnum';
 import { VGEGLTF } from './dataMana/VGEGLTF';
-import { VGEWater } from './dataMana/VGEWater';
+import { ResourceItem } from '../Config/ResourceItem/ResourceItem';
+import { DataTypeEnum } from '../Config/Enum/DataTypeEnum';
 import * as listenType from '../EventMana/impl/ListenType';
 import { ScopeType } from '../EventMana/impl/ScopeType';
 import { SourceEvent } from '../EventMana/lib/SourceEvent';
 import { EventMana } from '../EventMana/EventMana';
 import { AsyncTool } from '../../Utils/index';
-import { ResourceItemTool } from '../Config/Resource/ResourceItemTool';
+import { ResourceItemTool } from '../Config/ResourceItemTool';
 
 class WorkSpace {
     private readonly scopeType: ScopeType;
@@ -37,9 +35,7 @@ class WorkSpace {
     public layerMana: VGELayer;
     public poiMana: VGEPoi;
     public _3DTileMana: VGE3DTiles;
-    public geoJsonMana: VGEGeoJson;
     public gltfMana: VGEGLTF;
-    public waterMana: VGEWater;
 
     constructor(viewer: Viewer, scopeType: ScopeType) {
         this.scopeType = scopeType;
@@ -50,8 +46,6 @@ class WorkSpace {
         this.gltfMana = new VGEGLTF(viewer);
         this.poiMana = new VGEPoi(viewer);
         this._3DTileMana = new VGE3DTiles(viewer);
-        this.geoJsonMana = new VGEGeoJson(viewer);
-        this.waterMana = new VGEWater(viewer);
 
         this.sourceEvent = EventMana.sourceEvent;
         this.listenSource();
@@ -92,7 +86,6 @@ class WorkSpace {
             sourceItem = ResourceItemTool.completeParams(sourceItem);
         }
 
-
         let old = this.getNodes().find(item => sourceItem.pid === item.pid);
         if (old) {
             console.warn('工作区已加载该数据!不允许重复加载：', sourceItem.name);
@@ -104,18 +97,6 @@ class WorkSpace {
             console.info('%c' + mes, 'color:green');
         }
 
-        // 添加解密规则
-        if (sourceItem.decryptionKey) {
-            sourceItem.netRootPaths?.forEach(host => {
-                window.CesiumNetworkPlug.DecryptionController.ruleMap.set(sourceItem.netRootPaths, sourceItem.decryptionKey);
-            });
-        }
-        // 添加缓存规则
-        if (sourceItem.offlineCache) {
-            sourceItem.netRootPaths?.forEach(host => {
-                window.CesiumNetworkPlug.OfflineCacheController.ruleList.add(host);
-            });
-        }
 
 
         // 注释
@@ -131,12 +112,6 @@ class WorkSpace {
                 break;
             case DataTypeEnum.Cesium3DTile:
                 [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this._3DTileMana.addData(sourceItem));
-                break;
-            case DataTypeEnum.geoJson:
-                [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this.geoJsonMana.addData(sourceItem));
-                break;
-            case DataTypeEnum.water:
-                [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this.waterMana.addData(sourceItem));
                 break;
             case DataTypeEnum.poi:
                 [loadErr, resourceInstance] = await AsyncTool.awaitWrap(this.poiMana.addData(sourceItem));

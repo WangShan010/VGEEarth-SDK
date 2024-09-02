@@ -22,12 +22,12 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li a.tmpTargetNode_prev {}
 .ztree li a.tmpTargetNode_next {}
 .ztree li a input.rename {height:14px; width:80px; padding:0; margin:0;
-	font-size:12px; border:1px #7EC4CC solid; *border:0px}
+	font-size:12px; border:1px #7EC4CC solid; border:0px}
 .ztree li span {line-height:16px; margin-right: 2px}
 .ztree li span.button {line-height:0; margin:0;width:16px; height:16px; display: inline-block; vertical-align:middle;
 	border:0 none; cursor: pointer;
 	background-color:transparent; background-repeat:no-repeat; background-attachment: scroll;
-	background-image:url("./img/zTreeStandard.png"); *background-image:url("./img/zTreeStandard.gif")}
+	background-image:url("./img/zTreeStandard.png"); background-image:url("./img/zTreeStandard.gif")}
 
 .ztree li span.button.switch {width:1px; height:18px; visibility: hidden}
 
@@ -43,7 +43,7 @@ website:	http://code.google.com/p/jquerytree/
 	background:none;
 }*/
 
-.ztree li span.button.core_ico_docu{margin-right:2px; background-position:-126px 0; vertical-align:top; *vertical-align:middle}
-.ztree li span.button.check_ico_docu{margin-right:2px; background-position:-126px -16px; vertical-align:top; *vertical-align:middle}
-.ztree li span.button.edit_ico_docu{margin-right:2px; background-position:-126px -32px; vertical-align:top; *vertical-align:middle}
-.ztree li span.button.hide_ico_docu{margin-right:2px; background-position:-160px 0; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.core_ico_docu{margin-right:2px; background-position:-126px 0; vertical-align:top; vertical-align:middle}
+.ztree li span.button.check_ico_docu{margin-right:2px; background-position:-126px -16px; vertical-align:top; vertical-align:middle}
+.ztree li span.button.edit_ico_docu{margin-right:2px; background-position:-126px -32px; vertical-align:top; vertical-align:middle}
+.ztree li span.button.hide_ico_docu{margin-right:2px; background-position:-160px 0; vertical-align:top; vertical-align:middle}

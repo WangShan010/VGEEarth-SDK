@@ -1,5 +1,5 @@
-VGEEarth.ConfigTool.addTerrainOnIon(true);
-VGEEarth.ConfigTool.addBingMapOnIon(true);
+VGEEarth.ConfigTool.addTerrainOnAliYun(true);
+VGEEarth.ConfigTool.addBingMapOnAliYun(true);
 
 VGEEarth.ConfigTool.config.startAnimation = true;
 const earth = new VGEEarth.Earth('MapContainer');

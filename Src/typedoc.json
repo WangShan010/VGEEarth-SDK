@@ -15,10 +15,9 @@
     "./ts/Core/HandlerMana/index.ts",
     "./ts/Core/KeyboardDominate/index.ts",
     "./ts/Core/MeasureTool/index.ts",
-    "./ts/Core/PathPlanning/index.ts",
-    "./ts/Core/PlotTool/index.ts",
     "./ts/Core/RunEntityController/index.ts",
     "./ts/Core/WorkSpace/index.ts",
+
 
     "./ts/Utils/CameraUtils/index.ts",
     "./ts/Utils/CoordinateTool/index.ts",

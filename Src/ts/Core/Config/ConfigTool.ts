@@ -1,32 +1,22 @@
 import { ConfigImpl } from './ConfigImpl';
 import { DefaultConfig } from './DefaultConfig';
-import * as ListenType from '../EventMana/impl/ListenType';
-import { EventMana } from '../EventMana/EventMana';
-import { ScopeType } from '../EventMana/impl/ScopeType';
-import { ResourceItem } from './Resource/ResourceItem';
-import { OSMLayersList } from './Resource/OSMLayerList';
-import { MapBoxLayerList } from './Resource/MapBoxLayerList';
-import { TerrainList } from './Resource/TerrainList';
-import { BingMapLayerList } from './Resource/BingMapLayerList';
-import { DataTypeEnum } from './Resource/DataTypeEnum';
-import { SafeTool } from '../../Utils/YaoDo/Source/SafeTool';
-import { ResourceItemTool } from './Resource/ResourceItemTool';
-import { getEarth } from '../Earth/lib/getEarth';
+import { ResourceItem } from './ResourceItem/ResourceItem';
 import { AMapLayerList } from './Resource/AMapLayerList';
+import { BingMapLayerList } from './Resource/BingMapLayerList';
+import { MapBoxLayerList } from './Resource/MapBoxLayerList';
+import { OSMLayersList } from './Resource/OSMLayerList';
+import { TerrainList } from './Resource/TerrainList';
+import { TianDiTuLayerList } from './Resource/TianDiTuLayerList';
+import { DataTypeEnum } from './Enum/DataTypeEnum';
+import { ResourceItemTool } from './ResourceItemTool';
+import * as listenType from '../EventMana/impl/ListenType';
+import { EventMana, ScopeType } from '../EventMana/index';
 
 
 let config: ConfigImpl = DefaultConfig;
 
 /**
  * 名称：SDK 配置参数 的操作工具
- *
- *  重要的核心模块！本模块是开发人员控制 SDK 配置参数行为的重要途径。
- *  可以通过本模块的方法，对系统的全局配置参数进行导出、导入、编辑等操作。
- *
- *  还可以通过本模块的方法，向系统中添加资源项，包括地形、影像、模型、矢量数据等。
- *
- *  最后修改日期：2023-08-14
- *
  */
 const ConfigTool = {
 
@@ -87,6 +77,7 @@ const ConfigTool = {
         layer.show = show;
         await this.addResourceItem(layer);
     },
+
     async addAMapSatelliteLayerOnLine(show = false) {
         const layer = JSON.parse(JSON.stringify(AMapLayerList[0]));
         layer.defaultLoad = show;
@@ -99,12 +90,20 @@ const ConfigTool = {
         layer.show = show;
         await this.addResourceItem(layer);
     },
+    async addAMapLayerHasLabelOnIon(show = false) {
+        const layer = JSON.parse(JSON.stringify(AMapLayerList[2]));
+        layer.defaultLoad = show;
+        layer.show = show;
+        await this.addResourceItem(layer);
+    },
+
     async addMapBoxOnAliYun(show = false) {
         const layer = JSON.parse(JSON.stringify(MapBoxLayerList[0]));
         layer.defaultLoad = show;
         layer.show = show;
         await this.addResourceItem(layer);
     },
+
     async addBingMapOnIon(show = false) {
         const layer = JSON.parse(JSON.stringify(BingMapLayerList[0]));
         layer.defaultLoad = show;
@@ -117,6 +116,20 @@ const ConfigTool = {
         layer.show = show;
         await this.addResourceItem(layer);
     },
+    async addBingMapOnAliYun(show = false) {
+        const layer = JSON.parse(JSON.stringify(BingMapLayerList[2]));
+        layer.defaultLoad = show;
+        layer.show = show;
+        await this.addResourceItem(layer);
+    },
+    async addBingMapHasLabelOnAliYun(show = false) {
+        const layer = JSON.parse(JSON.stringify(BingMapLayerList[3]));
+        layer.defaultLoad = show;
+        layer.show = show;
+        await this.addResourceItem(layer);
+    },
+
+
     async addTerrainOnIon(show = false) {
         const terrain = JSON.parse(JSON.stringify(TerrainList[0]));
         terrain.defaultLoad = show;
@@ -129,6 +142,17 @@ const ConfigTool = {
         terrain.show = show;
         await this.addResourceItem(terrain);
     },
+    async addTianDiTuLayerList(layer: string[]) {
+        for (let i = 0; i < 6; i++) {
+            const item = JSON.parse(JSON.stringify(TianDiTuLayerList[i]));
+            if (layer.length > 0) {
+                item.defaultLoad = layer.includes(item.properties.layer);
+                item.show = layer.includes(item.properties.layer);
+            }
+            await this.addResourceItem(item);
+        }
+    },
+
 
     async addResourceItem(item: ResourceItem) {
         const resourceItem = ResourceItemTool.completeParams(item);
@@ -165,17 +189,24 @@ const ConfigTool = {
                 }
                     break;
             }
-            try {
-                const earth = getEarth();
-                if (earth && earth.viewer3DWorkSpace) {
-                    await earth.viewer3DWorkSpace.addData(resourceItem);
-                }
-            } catch (e) {
+            // if (resourceItem.show){
+            //     try {
+            //         const earth = getEarth();
+            //         if (earth && earth.viewer3DWorkSpace) {
+            //             console.log('加载，加载');
+            //             await earth.viewer3DWorkSpace.addData(resourceItem);
+            //         }
+            //     } catch (e) {
+            //
+            //     }
+            // }
 
-            }
+            // 配置文件内的资源项发生变动，触发事件
+            EventMana.sourceEvent.raiseEvent(listenType.DataEventType.addData, ScopeType.Viewer3D, resourceItem);
         }
         return resourceItem;
     },
+
     getResourcesByPid(pid: string) {
         return this.getAllSources().find(item => {
             return item.pid === pid;
@@ -191,6 +222,13 @@ const ConfigTool = {
             ...s.geoJsonList,
             ...s.poiList
         ];
+    },
+    setResourceParam(pid: string, key: string, value: any) {
+        const resource = this.getResourcesByPid(pid);
+        if (resource) {
+            // @ts-ignore
+            resource[key] = value;
+        }
     },
     getBaseLayer() {
         let s = this.config;

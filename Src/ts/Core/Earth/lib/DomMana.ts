@@ -11,7 +11,7 @@ let DomMana = {
         if (root) {
             root.style.cssText = ``;
             root.innerHTML = '';
-            root.style.position = 'absolute';
+            // root.style.position = 'absolute';
             root.style.height = '100%';
             root.style.width = '100%';
             root.style.display = 'flex';

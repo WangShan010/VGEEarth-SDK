@@ -4,13 +4,6 @@ import { Entity, PositionProperty, Viewer } from 'cesium';
 import * as  Polyline from '../ExpandEntity/Material/Polyline/index';
 
 
-/**
- * 运动物体控制器
- *
- * 该类用于控制物体的运动，包括物体的运动轨迹、速度、是否循环等。
- *
- * 具体可参考：http://8.146.208.114:3000/MetaVGE-3DVis-Vue3/index.html#/example
- */
 class RunEntityController {
     private viewer: Viewer;
     entity: Entity;

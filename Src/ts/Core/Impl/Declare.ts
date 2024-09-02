@@ -19,10 +19,6 @@ declare global {
         };
         DOMParser: any;
         html2canvas: any;
-        CesiumNetworkPlug: {
-            OfflineCacheController: any,
-            DecryptionController: any,
-        };
         echarts: any;
         mapv: any;
         earth: any;

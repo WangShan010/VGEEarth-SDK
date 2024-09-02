@@ -1,6 +1,6 @@
 import { Cesium } from '../../Impl/Declare';
 import { CustomDataSource, Entity, Viewer } from 'cesium';
-import { ResourceItem } from '../../Config/Resource/ResourceItem';
+import { ResourceItem } from '../../Config/ResourceItem/ResourceItem';
 import { MotionEntity } from '../../ExpandEntity/MotionEntity/index';
 import { VGEData } from './impl/VGEData';
 
